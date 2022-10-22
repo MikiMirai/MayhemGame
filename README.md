@@ -9,5 +9,5 @@ For now we don't have much to offer but we are gonna be adding things gradually,
 Small and major updates will be gradually published when we start prototyping and testing for real.
 
 # How to view/edit the code:
-1. Clone the project locally 
+1. Clone the project locally.
 2. Open the folder with the latest LTS version of Unity (currently 2021.3.11f1) using Unity Hub.
