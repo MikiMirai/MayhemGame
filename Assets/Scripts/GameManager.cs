@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public int currentPumpkin;
     public int currentGold;
+    public TextMeshProUGUI pumpkinText;
     public TextMeshProUGUI goldText;
 
     // Start is called before the first frame update
@@ -25,5 +24,11 @@ public class GameManager : MonoBehaviour
     {
         currentGold += goldToAdd;
         goldText.text = "Gold: " + currentGold;
+    }
+
+    public void AddPumpkin(int pumpkinToAdd)
+    {
+        currentPumpkin += pumpkinToAdd;
+        pumpkinText.text = "Pumpkin: " + currentPumpkin;
     }
 }
