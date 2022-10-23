@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, moveDirection.y, moveDirection.z);
+        moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, moveDirection.y, Input.GetAxis("Vertical") * moveSpeed);
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection.y = jumpForce;
                 isMidAir = true;
             }
+
             //Double jump here
             else if (isMidAir)
             {
