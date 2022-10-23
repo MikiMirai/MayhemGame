@@ -1,5 +1,5 @@
 # Mayhem Game created by Mirai Games
-We are creating a 2D platformer-shooter with skills, variety of weapons, enemies and power ups. And lots of explosions!!
+We are creating a 3rd and first person shooter with skills, variety of weapons, enemies and power ups. And lots of explosions!!
 
 This is a fan project that we are making in our free time so don't expect much, fast progress xd.
 
