@@ -22,6 +22,6 @@ public class CamerController : MonoBehaviour
     void Update()
     {
         transform.position = target.position - offset;
-        //transform.LookAt(target);
+        transform.LookAt(target);
     }
 }
