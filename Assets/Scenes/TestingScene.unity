@@ -138,7 +138,6 @@ GameObject:
   m_Component:
   - component: {fileID: 101002978}
   - component: {fileID: 101002977}
-  - component: {fileID: 101002976}
   - component: {fileID: 101002979}
   m_Layer: 0
   m_Name: Main Cam
@@ -147,14 +146,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &101002976
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101002975}
-  m_Enabled: 1
 --- !u!20 &101002977
 Camera:
   m_ObjectHideFlags: 0
@@ -206,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101002975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1.7119999, z: -2}
+  m_LocalPosition: {x: 0.5, y: 1.7119999, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -290,7 +281,6 @@ GameObject:
   m_Component:
   - component: {fileID: 278562631}
   - component: {fileID: 278562633}
-  - component: {fileID: 278562632}
   m_Layer: 0
   m_Name: FirstPerson
   m_TagString: Untagged
@@ -313,14 +303,6 @@ Transform:
   m_Father: {fileID: 2105428848}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &278562632
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278562630}
-  m_Enabled: 1
 --- !u!20 &278562633
 Camera:
   m_ObjectHideFlags: 0
@@ -447,7 +429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 757, y: 389}
+  m_AnchoredPosition: {x: 693, y: 389}
   m_SizeDelta: {x: 219.97, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652347226
@@ -1069,11 +1051,11 @@ MonoBehaviour:
     WalkingForwardSpeed: 4
     WalkingStrafeSpeed: 3
     WalkingBackwardsSpeed: 3
-    JumpingHeight: 10
+    JumpingHeight: 6
     JumpingFalloff: 0.2
   viewClampYMin: -70
   viewClampYMax: 80
-  gravityAmount: 0.8
+  gravityAmount: 0.098
   gravityMin: -3
   jumpingForce: {x: 0, y: 0, z: 0}
 --- !u!143 &1275876496
@@ -1162,7 +1144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316535498}
   m_LocalRotation: {x: -0.19816908, y: 0.0108733615, z: -0.0021917876, w: -0.9801051}
-  m_LocalPosition: {x: 0.5, y: 1.7119999, z: -2}
+  m_LocalPosition: {x: 0.5, y: 1.7119999, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1622,11 +1604,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 2}
+  Damping: {x: 0.1, y: 1, z: 1}
   ShoulderOffset: {x: 0.5, y: -0.07, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 2
+  CameraDistance: 1.96
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
@@ -2113,6 +2095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2105428848}
+  - component: {fileID: 2105428849}
   m_Layer: 0
   m_Name: Fallow Target
   m_TagString: Untagged
@@ -2136,6 +2119,14 @@ Transform:
   m_Father: {fileID: 1275876494}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &2105428849
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105428847}
+  m_Enabled: 1
 --- !u!1001 &793634618902751003
 PrefabInstance:
   m_ObjectHideFlags: 0
