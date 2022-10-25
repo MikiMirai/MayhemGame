@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static scr_Models;
 
 public class scr_CharacterController : MonoBehaviour
@@ -33,6 +34,8 @@ public class scr_CharacterController : MonoBehaviour
 
     public Vector3 jumpingForce;
     private Vector3 jumpingForceVelocity;
+
+    private bool isMidAir;
 
     private void Awake()
     {
@@ -132,11 +135,22 @@ public class scr_CharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (!characterController.isGrounded)
+        if (characterController.isGrounded)
+        {
+            jumpingForce = Vector3.up * playerSettings.JumpingHeight;
+            isMidAir = true;
+        }
+
+        //Double jump here
+        else if (isMidAir)
+        {
+            jumpingForce = Vector3.up * playerSettings.JumpingHeight;
+            isMidAir = false;
+        }
+
+        else if (!characterController.isGrounded)
         {
             return;
         }
-
-        jumpingForce = Vector3.up * playerSettings.JumpingHeight;
     }
 }
