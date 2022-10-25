@@ -9,9 +9,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI goldText;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        HealthSystem healthSystem = new HealthSystem(100);
+
+        Debug.Log("Health: " + healthSystem.GetHealth());
+        healthSystem.Damage(10);
+        Debug.Log("Health: " + healthSystem.GetHealth());
+        healthSystem.Heal(10);
+        Debug.Log("Health: " + healthSystem.GetHealth());
+
     }
 
     // Update is called once per frame
