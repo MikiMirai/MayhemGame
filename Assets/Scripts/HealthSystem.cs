@@ -1,46 +1,51 @@
+using TMPro;
 using UnityEngine;
-
 
 public class HealthSystem : MonoBehaviour {
 
-    private int health;
-    private int healthMax;
+    private int currentHealth;
+    public int healthMax = 100;
+    public TextMeshProUGUI healthBar;
 
-    public HealthSystem(int healthMax)
+    private void Start()
     {
-        this.healthMax = healthMax;
-        health = healthMax;
+        currentHealth = healthMax;
+        healthBar.text = "Health: " + currentHealth;
     }
 
     // Gets your current health
     public int GetHealth()
     {
-        return health;
+        return currentHealth;
     }
 
     // A method for Damage
     public void Damage(int damageAmount)
     {
         // Taking health from current health
-        health -= damageAmount;
+        currentHealth -= damageAmount;
 
         // Keeping it not going under 0
-        if(health < 0)
+        if(currentHealth < 0)
         {
-            healthMax = 0;
+            currentHealth = 0;
         }
+
+        healthBar.text = "Health: " + currentHealth;
     }
 
     
     public void Heal(int healAmount)
     {
         // Healing the current health
-        health += healAmount;
+        currentHealth += healAmount;
 
         // Keeping it to not exceed above 100
-        if(health > healthMax)
+        if(currentHealth > healthMax)
         {
-            health = healthMax;
+            currentHealth = healthMax;
         }
+
+        healthBar.text = "Health: " + currentHealth;
     }
 }
