@@ -7,6 +7,8 @@ public class scr_CharacterController : MonoBehaviour
 {
     //Attach animator to set values
     public Animator anim;
+    private bool isWalkingLeft;
+    private bool isWalkingRight;
 
     private CharacterController characterController;
     private DefaultInput defaultInput;
@@ -59,6 +61,8 @@ public class scr_CharacterController : MonoBehaviour
         //Set animator values
         anim.SetBool("isGrounded", characterController.isGrounded);
         anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        anim.SetBool("WalkingLeft", isWalkingLeft);
+        anim.SetBool("WalkingRight", isWalkingRight);
     }
 
     private void CalculateView()
@@ -77,9 +81,20 @@ public class scr_CharacterController : MonoBehaviour
 
     private void CalculateMovement()
     {
+        isWalkingLeft = false;
+        isWalkingRight = false;
         //Modify the speed by the player settings
         var verticalSpeed = playerSettings.WalkingForwardSpeed * input_Movement.y * Time.deltaTime;
         var horizontalSpeed = playerSettings.WalkingStrafeSpeed * input_Movement.x * Time.deltaTime;
+
+        if (horizontalSpeed < 0)
+        {
+            isWalkingLeft = true;
+        }
+        else if (horizontalSpeed > 0)
+        {
+            isWalkingRight = true;
+        }
 
         //Make new movement vector and transform it to world space
         var newMovementSpeed = new Vector3(horizontalSpeed, 0, verticalSpeed);
