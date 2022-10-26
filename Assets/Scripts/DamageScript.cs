@@ -8,7 +8,7 @@ public class DamageScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            FindObjectOfType<HealthSystem>().Damage(damage);
+            FindObjectOfType<HealthSystem>().TakeDamage(damage);
         }
     }
 }

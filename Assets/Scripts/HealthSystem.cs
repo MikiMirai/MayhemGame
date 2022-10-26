@@ -20,7 +20,7 @@ public class HealthSystem : MonoBehaviour {
     }
 
     // A method for Damage
-    public void Damage(int damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         // Taking health from current health
         currentHealth -= damageAmount;
