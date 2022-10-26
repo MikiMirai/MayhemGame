@@ -20,6 +20,8 @@ public class scr_CharacterController : MonoBehaviour
     public Vector2 input_Movement;
     public Vector2 input_View;
 
+    private Vector3 newCharacterRotation;
+
     [Header("References")]
     public Transform cameraHolder;
     public GameObject ThirdPersonCamera;
@@ -53,6 +55,8 @@ public class scr_CharacterController : MonoBehaviour
 
         defaultInput.Enable();
 
+        newCharacterRotation = transform.localRotation.eulerAngles;
+
         characterController = GetComponent<CharacterController>();
     }
 
@@ -61,6 +65,7 @@ public class scr_CharacterController : MonoBehaviour
         CalculateMovement();
         CalculateView();
         CalculateJump();
+
 
         //Set animator values
         anim.SetBool("isGrounded", characterController.isGrounded);
@@ -73,8 +78,18 @@ public class scr_CharacterController : MonoBehaviour
     {
         #region Horizontal Rotation
 
-        //Rotate the Follow Target transform based on the input
-        cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
+        if (!ThirdPersonCamera.activeSelf)
+        {
+            //Camera rotation left-right
+            newCharacterRotation.y += playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? -input_View.x : input_View.x) * Time.deltaTime;
+            //Turning rotation vector, back to quaternion
+            transform.localRotation = Quaternion.Euler(newCharacterRotation);
+        }
+        else 
+        {
+            //Rotate the Follow Target transform based on the input
+            cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
+        }
 
         #endregion
 
@@ -87,15 +102,22 @@ public class scr_CharacterController : MonoBehaviour
         var angle = cameraHolder.transform.localEulerAngles.x;
 
         //Clamp the Up/Down rotation
-        if (angle > 180 && angle < 340)
+        //if (angle > 180 && angle < viewClampYMin)
+        //{
+        //    angles.x = viewClampYMin;
+        //}
+        //else if (angle < 180 && angle > viewClampYMax)
+        //{
+        //    angles.x = viewClampYMax;
+        //}
+        if (angle > 180 && angle < viewClampYMin)
         {
-            angles.x = 340;
+            angles.x = viewClampYMin;
         }
-        else if (angle < 180 && angle > 40)
+        else if (angle < 180 && angle > viewClampYMax)
         {
-            angles.x = 40;
+            angles.x = viewClampYMax;
         }
-
 
         cameraHolder.transform.localEulerAngles = angles;
         #endregion
