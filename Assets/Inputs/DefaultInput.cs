@@ -62,6 +62,15 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire1"",
+                    ""type"": ""Button"",
+                    ""id"": ""211659f6-57bc-45d9-b50e-5e6d2b67fb09"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb9d722b-9b9b-4c13-8746-8be771361bba"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         m_Character_View = m_Character.FindAction("View", throwIfNotFound: true);
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
         m_Character_Aim = m_Character.FindAction("Aim", throwIfNotFound: true);
+        m_Character_Fire1 = m_Character.FindAction("Fire1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +248,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_View;
     private readonly InputAction m_Character_Jump;
     private readonly InputAction m_Character_Aim;
+    private readonly InputAction m_Character_Fire1;
     public struct CharacterActions
     {
         private @DefaultInput m_Wrapper;
@@ -235,6 +257,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         public InputAction @View => m_Wrapper.m_Character_View;
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
         public InputAction @Aim => m_Wrapper.m_Character_Aim;
+        public InputAction @Fire1 => m_Wrapper.m_Character_Fire1;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +279,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Aim.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAim;
+                @Fire1.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFire1;
+                @Fire1.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFire1;
+                @Fire1.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFire1;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +298,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @Fire1.started += instance.OnFire1;
+                @Fire1.performed += instance.OnFire1;
+                @Fire1.canceled += instance.OnFire1;
             }
         }
     }
@@ -282,5 +311,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         void OnView(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnFire1(InputAction.CallbackContext context);
     }
 }
