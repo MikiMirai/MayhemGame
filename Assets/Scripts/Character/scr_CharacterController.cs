@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Cinemachine;
 using static scr_Models;
+using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using Newtonsoft.Json.Linq;
 
 public class scr_CharacterController : MonoBehaviour
 {
@@ -16,11 +20,9 @@ public class scr_CharacterController : MonoBehaviour
     public Vector2 input_Movement;
     public Vector2 input_View;
 
-    private Vector3 newCameraRotation;
-    private Vector3 newCharacterRotation;
-
     [Header("References")]
-    public Transform camerHolder;
+    public Transform cameraHolder;
+    public GameObject ThirdPersonCamera;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -36,6 +38,9 @@ public class scr_CharacterController : MonoBehaviour
     private Vector3 jumpingForceVelocity;
 
     private bool isMidAir;
+    public float rotationLerp = 0.5f;
+    public Vector3 nextPosition;
+    public Quaternion nextRotation;
 
     private void Awake()
     {
@@ -48,17 +53,13 @@ public class scr_CharacterController : MonoBehaviour
 
         defaultInput.Enable();
 
-        //Get starting location of char and camera
-        newCameraRotation = camerHolder.localRotation.eulerAngles;
-        newCharacterRotation = transform.localRotation.eulerAngles;
-
         characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        CalculateView();
         CalculateMovement();
+        CalculateView();
         CalculateJump();
 
         //Set animator values
@@ -70,16 +71,54 @@ public class scr_CharacterController : MonoBehaviour
 
     private void CalculateView()
     {
-        //Camera rotation left-right
-        newCharacterRotation.y += playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? -input_View.x : input_View.x) * Time.deltaTime;
-        //Turning rotation vector, back to quaternion
-        transform.localRotation = Quaternion.Euler(newCharacterRotation);
+        #region Horizontal Rotation
 
-        //Camera rotation up-down
-        newCameraRotation.x += playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.y : -input_View.y) * Time.deltaTime;
-        newCameraRotation.x = Mathf.Clamp(newCameraRotation.x, viewClampYMin, viewClampYMax);
-        //Turning rotation vector, back to quaternion
-        camerHolder.localRotation = Quaternion.Euler(newCameraRotation);
+        //Rotate the Follow Target transform based on the input
+        cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
+
+        #endregion
+
+        #region Vertical Rotation
+        cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? -input_View.y : -input_View.y) * Time.deltaTime, Vector3.right);
+
+        var angles = cameraHolder.transform.localEulerAngles;
+        angles.z = 0;
+
+        var angle = cameraHolder.transform.localEulerAngles.x;
+
+        //Clamp the Up/Down rotation
+        if (angle > 180 && angle < 340)
+        {
+            angles.x = 340;
+        }
+        else if (angle < 180 && angle > 40)
+        {
+            angles.x = 40;
+        }
+
+
+        cameraHolder.transform.localEulerAngles = angles;
+        #endregion
+
+        nextRotation = Quaternion.Lerp(cameraHolder.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+
+        if (input_Movement.x == 0 && input_Movement.y == 0)
+        {
+            if (Input.GetButton("Aim"))
+            {
+                //Set the player rotation based on the look transform
+                transform.rotation = Quaternion.Euler(0, cameraHolder.transform.rotation.eulerAngles.y, 0);
+                //reset the y rotation of the look transform
+                cameraHolder.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+            }
+
+            return;
+        }
+
+        //Set the player rotation based on the look transform
+        transform.rotation = Quaternion.Euler(0, cameraHolder.transform.rotation.eulerAngles.y, 0);
+        //reset the y rotation of the look transform
+        cameraHolder.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
 
     private void CalculateMovement()
