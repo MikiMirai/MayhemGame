@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using Cinemachine;
 using static scr_Models;
+using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using Newtonsoft.Json.Linq;
 
 public class scr_CharacterController : MonoBehaviour
 {
     //Attach animator to set values
     public Animator anim;
+    private bool isWalkingLeft;
+    private bool isWalkingRight;
 
     private CharacterController characterController;
     private DefaultInput defaultInput;
     public Vector2 input_Movement;
     public Vector2 input_View;
 
-    private Vector3 newCameraRotation;
     private Vector3 newCharacterRotation;
 
     [Header("References")]
-    public Transform camerHolder;
+    public Transform cameraHolder;
+    public GameObject ThirdPersonCamera;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -32,6 +39,11 @@ public class scr_CharacterController : MonoBehaviour
     public Vector3 jumpingForce;
     private Vector3 jumpingForceVelocity;
 
+    private bool isMidAir;
+    public float rotationLerp = 0.5f;
+    public Vector3 nextPosition;
+    public Quaternion nextRotation;
+
     private void Awake()
     {
         defaultInput = new DefaultInput();
@@ -43,8 +55,6 @@ public class scr_CharacterController : MonoBehaviour
 
         defaultInput.Enable();
 
-        //Get starting location of char and camera
-        newCameraRotation = camerHolder.localRotation.eulerAngles;
         newCharacterRotation = transform.localRotation.eulerAngles;
 
         characterController = GetComponent<CharacterController>();
@@ -52,34 +62,103 @@ public class scr_CharacterController : MonoBehaviour
 
     private void Update()
     {
-        CalculateView();
         CalculateMovement();
+        CalculateView();
         CalculateJump();
+
 
         //Set animator values
         anim.SetBool("isGrounded", characterController.isGrounded);
         anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        anim.SetBool("WalkingLeft", isWalkingLeft);
+        anim.SetBool("WalkingRight", isWalkingRight);
     }
 
     private void CalculateView()
     {
-        //Camera rotation left-right
-        newCharacterRotation.y += playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? -input_View.x : input_View.x) * Time.deltaTime;
-        //Turning rotation vector, back to quaternion
-        transform.localRotation = Quaternion.Euler(newCharacterRotation);
+        #region Horizontal Rotation
 
-        //Camera rotation up-down
-        newCameraRotation.x += playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.y : -input_View.y) * Time.deltaTime;
-        newCameraRotation.x = Mathf.Clamp(newCameraRotation.x, viewClampYMin, viewClampYMax);
-        //Turning rotation vector, back to quaternion
-        camerHolder.localRotation = Quaternion.Euler(newCameraRotation);
+        if (!ThirdPersonCamera.activeSelf)
+        {
+            //Camera rotation left-right
+            newCharacterRotation.y += playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? -input_View.x : input_View.x) * Time.deltaTime;
+            //Turning rotation vector, back to quaternion
+            transform.localRotation = Quaternion.Euler(newCharacterRotation);
+        }
+        else 
+        {
+            //Rotate the Follow Target transform based on the input
+            cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
+        }
+
+        #endregion
+
+        #region Vertical Rotation
+        cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? -input_View.y : -input_View.y) * Time.deltaTime, Vector3.right);
+
+        var angles = cameraHolder.transform.localEulerAngles;
+        angles.z = 0;
+
+        var angle = cameraHolder.transform.localEulerAngles.x;
+
+        //Clamp the Up/Down rotation
+        //if (angle > 180 && angle < viewClampYMin)
+        //{
+        //    angles.x = viewClampYMin;
+        //}
+        //else if (angle < 180 && angle > viewClampYMax)
+        //{
+        //    angles.x = viewClampYMax;
+        //}
+        if (angle > 180 && angle < viewClampYMin)
+        {
+            angles.x = viewClampYMin;
+        }
+        else if (angle < 180 && angle > viewClampYMax)
+        {
+            angles.x = viewClampYMax;
+        }
+
+        cameraHolder.transform.localEulerAngles = angles;
+        #endregion
+
+        nextRotation = Quaternion.Lerp(cameraHolder.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+
+        if (input_Movement.x == 0 && input_Movement.y == 0)
+        {
+            if (Input.GetButton("Aim"))
+            {
+                //Set the player rotation based on the look transform
+                transform.rotation = Quaternion.Euler(0, cameraHolder.transform.rotation.eulerAngles.y, 0);
+                //reset the y rotation of the look transform
+                cameraHolder.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+            }
+
+            return;
+        }
+
+        //Set the player rotation based on the look transform
+        transform.rotation = Quaternion.Euler(0, cameraHolder.transform.rotation.eulerAngles.y, 0);
+        //reset the y rotation of the look transform
+        cameraHolder.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
 
     private void CalculateMovement()
     {
+        isWalkingLeft = false;
+        isWalkingRight = false;
         //Modify the speed by the player settings
         var verticalSpeed = playerSettings.WalkingForwardSpeed * input_Movement.y * Time.deltaTime;
         var horizontalSpeed = playerSettings.WalkingStrafeSpeed * input_Movement.x * Time.deltaTime;
+
+        if (horizontalSpeed < 0)
+        {
+            isWalkingLeft = true;
+        }
+        else if (horizontalSpeed > 0)
+        {
+            isWalkingRight = true;
+        }
 
         //Make new movement vector and transform it to world space
         var newMovementSpeed = new Vector3(horizontalSpeed, 0, verticalSpeed);
@@ -117,11 +196,22 @@ public class scr_CharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (!characterController.isGrounded)
+        if (characterController.isGrounded)
+        {
+            jumpingForce = Vector3.up * playerSettings.JumpingHeight;
+            isMidAir = true;
+        }
+
+        //Double jump here
+        else if (isMidAir)
+        {
+            jumpingForce = Vector3.up * playerSettings.JumpingHeight;
+            isMidAir = false;
+        }
+
+        else if (!characterController.isGrounded)
         {
             return;
         }
-
-        jumpingForce = Vector3.up * playerSettings.JumpingHeight;
     }
 }
