@@ -26,4 +26,12 @@ public static class scr_Models
     }
 
     #endregion
+
+    public enum PlayerStance
+    {
+        Stand,
+        Crouch,
+        Prone
+    }
+
 }

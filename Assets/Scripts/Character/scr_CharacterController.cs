@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,16 @@ public class scr_CharacterController : MonoBehaviour
     public Vector3 jumpingForce;
     private Vector3 jumpingForceVelocity;
 
+    [Header("Stance")]
+    public PlayerStance playerStance;
+    public float playerStanceSmoothing;
+    public float cameraStandHeight;
+    public float cameraCrouchHeight;
+    public float cameraProneHeight;
+
+    private float cameraHeight;
+    private float cameraHeightVelocity;
+
     private bool isMidAir;
     public float rotationLerp = 0.5f;
     public Vector3 nextPosition;
@@ -58,6 +69,9 @@ public class scr_CharacterController : MonoBehaviour
         newCharacterRotation = transform.localRotation.eulerAngles;
 
         characterController = GetComponent<CharacterController>();
+
+        cameraHeight = cameraHolder.localPosition.y;
+
     }
 
     private void Update()
@@ -65,6 +79,7 @@ public class scr_CharacterController : MonoBehaviour
         CalculateMovement();
         CalculateView();
         CalculateJump();
+        CalculateCameraHeight();
 
 
         //Set animator values
@@ -192,6 +207,23 @@ public class scr_CharacterController : MonoBehaviour
     private void CalculateJump()
     {
         jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.zero, ref jumpingForceVelocity, playerSettings.JumpingFalloff);
+    }
+
+    private void CalculateCameraHeight()
+    {
+
+        if (playerStance == PlayerStance.Crouch)
+        {
+            cameraStandHeight = cameraCrouchHeight;
+        }
+        else if (playerStance == PlayerStance.Prone)
+        {
+            cameraStandHeight = cameraProneHeight;
+        }    
+
+
+        cameraHeight = Mathf.SmoothDamp(cameraHolder.localPosition.y, cameraStandHeight, ref cameraHeightVelocity, playerStanceSmoothing);
+        cameraHolder.localPosition = new Vector3(cameraHolder.localPosition.x, cameraHeight, cameraHolder.localPosition.z);
     }
 
     private void Jump()
