@@ -1,13 +1,5 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Cinemachine;
 using static scr_Models;
-using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
-using Newtonsoft.Json.Linq;
 
 public class scr_CharacterController : MonoBehaviour
 {
