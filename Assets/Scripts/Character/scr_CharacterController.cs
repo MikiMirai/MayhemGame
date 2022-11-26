@@ -171,6 +171,20 @@ public class scr_CharacterController : MonoBehaviour
 
         isWalkingLeft = false;
         isWalkingRight = false;
+        
+        float verticalSpeed = 0;
+        float horizontalSpeed = 0;
+
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift) && playerSettings.RunToggle == false)
+        {
+            playerSettings.RunToggle = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && playerSettings.RunToggle == true)
+        {
+            playerSettings.RunToggle = false;
+        }
+
         //Modify the speed by the player settings
 
         if (horizontalSpeed < 0)
