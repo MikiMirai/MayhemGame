@@ -26965,10 +26965,10 @@ MonoBehaviour:
     ViewYSensitivity: 6
     ViewXInverted: 0
     ViewYInverted: 0
+    RunningForwardSpeed: 10
+    RunningStrafeSpeed: 8
     WalkingForwardSpeed: 4
     WalkingStrafeSpeed: 3
-    RunForwardSpeed: 10
-    RunStrafeSpeed: 8
     JumpingHeight: 6
     JumpingFalloff: 0.2
   viewClampYMin: 300
@@ -26977,11 +26977,10 @@ MonoBehaviour:
   gravityMin: -3
   jumpingForce: {x: 0, y: 0, z: 0}
   playerStance: 0
-  playerStanceSmoothing: 0
-  cameraStandHeight: 0
-  cameraCrouchHeight: 0
-  cameraProneHeight: 0
-  runToggle: 0
+  playerStanceSmoothing: 0.3
+  cameraStandHeight: 1.3
+  cameraCrouchHeight: 0.9
+  cameraProneHeight: 0.6
   rotationLerp: 0.5
   nextPosition: {x: 0, y: 0, z: 0}
   nextRotation: {x: 0, y: 0, z: 0, w: 0}
