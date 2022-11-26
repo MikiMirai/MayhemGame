@@ -154,9 +154,31 @@ public class scr_CharacterController : MonoBehaviour
     {
         isWalkingLeft = false;
         isWalkingRight = false;
+        
+        float verticalSpeed = 0;
+        float horizontalSpeed = 0;
+
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift) && playerSettings.RunToggle == false)
+        {
+            playerSettings.RunToggle = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && playerSettings.RunToggle == true)
+        {
+            playerSettings.RunToggle = false;
+        }
+
         //Modify the speed by the player settings
-        var verticalSpeed = playerSettings.WalkingForwardSpeed * input_Movement.y * Time.deltaTime;
-        var horizontalSpeed = playerSettings.WalkingStrafeSpeed * input_Movement.x * Time.deltaTime;
+        if (playerSettings.RunToggle == true)
+        {
+            verticalSpeed = playerSettings.RunForwardSpeed * input_Movement.y * Time.deltaTime;
+            horizontalSpeed = playerSettings.RunStrafeSpeed * input_Movement.x * Time.deltaTime;
+        }
+        else
+        {
+            verticalSpeed = playerSettings.WalkingForwardSpeed * input_Movement.y * Time.deltaTime;
+            horizontalSpeed = playerSettings.WalkingStrafeSpeed * input_Movement.x * Time.deltaTime;
+        }
 
         if (horizontalSpeed < 0)
         {

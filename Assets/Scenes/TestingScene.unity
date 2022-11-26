@@ -444,7 +444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101002975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1.282, z: -1.96}
+  m_LocalPosition: {x: 0.61, y: 1.282, z: 0.6299999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12422,7 +12422,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316535498}
   m_LocalRotation: {x: -0.19816908, y: 0.0108733615, z: -0.0021917876, w: -0.9801051}
-  m_LocalPosition: {x: 0.980608, y: -0.5047977, z: -1.5278323}
+  m_LocalPosition: {x: 1.090608, y: -0.5047977, z: 1.0621676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26779,7 +26779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6332157740817144970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.13, z: 0}
+  m_LocalPosition: {x: 0.11, y: 0.13, z: 2.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26967,7 +26967,8 @@ MonoBehaviour:
     ViewYInverted: 0
     WalkingForwardSpeed: 4
     WalkingStrafeSpeed: 3
-    WalkingBackwardsSpeed: 3
+    RunForwardSpeed: 10
+    RunStrafeSpeed: 8
     JumpingHeight: 6
     JumpingFalloff: 0.2
   viewClampYMin: 300
@@ -26980,6 +26981,7 @@ MonoBehaviour:
   cameraStandHeight: 0
   cameraCrouchHeight: 0
   cameraProneHeight: 0
+  runToggle: 0
   rotationLerp: 0.5
   nextPosition: {x: 0, y: 0, z: 0}
   nextRotation: {x: 0, y: 0, z: 0, w: 0}

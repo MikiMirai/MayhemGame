@@ -18,7 +18,11 @@ public static class scr_Models
         [Header("Movement")]
         public float WalkingForwardSpeed;
         public float WalkingStrafeSpeed;
-        public float WalkingBackwardsSpeed;
+
+        [Header("Sprint")]
+        public bool RunToggle = false;
+        public float RunForwardSpeed = 5f;
+        public float RunStrafeSpeed = 4f;
 
         [Header("Jumping")]
         public float JumpingHeight;
