@@ -166,35 +166,11 @@ public class scr_CharacterController : MonoBehaviour
         if (isSprinting)
         {
             verticalSpeed = playerSettings.RunningForwardSpeed;
-            horizontalSpeed = playerSettings.RunningForwardSpeed;
+            horizontalSpeed = playerSettings.RunningStrafeSpeed;
         }
 
         isWalkingLeft = false;
         isWalkingRight = false;
-        
-        float verticalSpeed = 0;
-        float horizontalSpeed = 0;
-
-        
-        if (Input.GetKeyDown(KeyCode.LeftShift) && playerSettings.RunToggle == false)
-        {
-            playerSettings.RunToggle = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && playerSettings.RunToggle == true)
-        {
-            playerSettings.RunToggle = false;
-        }
-
-        //Modify the speed by the player settings
-
-        if (horizontalSpeed < 0)
-        {
-            isWalkingLeft = true;
-        }
-        else if (horizontalSpeed > 0)
-        {
-            isWalkingRight = true;
-        }
 
         //Make new movement vector and transform it to world space
         var newMovementSpeed = new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime);
