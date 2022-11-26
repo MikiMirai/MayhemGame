@@ -71,6 +71,15 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprinting"",
+                    ""type"": ""Button"",
+                    ""id"": ""216cdce5-42e0-480b-a46a-a1dc3e5e656a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""action"": ""Fire1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b78250fe-c288-4806-96d9-79f19f91c325"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprinting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
         m_Character_Aim = m_Character.FindAction("Aim", throwIfNotFound: true);
         m_Character_Fire1 = m_Character.FindAction("Fire1", throwIfNotFound: true);
+        m_Character_Sprinting = m_Character.FindAction("Sprinting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +270,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Jump;
     private readonly InputAction m_Character_Aim;
     private readonly InputAction m_Character_Fire1;
+    private readonly InputAction m_Character_Sprinting;
     public struct CharacterActions
     {
         private @DefaultInput m_Wrapper;
@@ -258,6 +280,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
         public InputAction @Aim => m_Wrapper.m_Character_Aim;
         public InputAction @Fire1 => m_Wrapper.m_Character_Fire1;
+        public InputAction @Sprinting => m_Wrapper.m_Character_Sprinting;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +305,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Fire1.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFire1;
                 @Fire1.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFire1;
                 @Fire1.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnFire1;
+                @Sprinting.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSprinting;
+                @Sprinting.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSprinting;
+                @Sprinting.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSprinting;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +327,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Fire1.started += instance.OnFire1;
                 @Fire1.performed += instance.OnFire1;
                 @Fire1.canceled += instance.OnFire1;
+                @Sprinting.started += instance.OnSprinting;
+                @Sprinting.performed += instance.OnSprinting;
+                @Sprinting.canceled += instance.OnSprinting;
             }
         }
     }
@@ -312,5 +341,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnFire1(InputAction.CallbackContext context);
+        void OnSprinting(InputAction.CallbackContext context);
     }
 }
