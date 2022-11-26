@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static scr_Models;
@@ -12,14 +13,17 @@ public class scr_CharacterController : MonoBehaviour
 
     private CharacterController characterController;
     private DefaultInput defaultInput;
-    public Vector2 input_Movement;
-    public Vector2 input_View;
+    private Vector2 input_Movement;
+    private Vector2 input_View;
 
     private Vector3 newCharacterRotation;
 
     [Header("References")]
     public Transform cameraHolder;
+    public Transform feetTransform;
     public GameObject ThirdPersonCamera;
+    public LayerMask playerMask;
+
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -36,13 +40,16 @@ public class scr_CharacterController : MonoBehaviour
 
     [Header("Stance")]
     public PlayerStance playerStance;
-    public float playerStanceSmoothing = 0.3f;
-    public float cameraStandHeight = 1.3f;
-    public float cameraCrouchHeight = 0.9f;
-    public float cameraProneHeight = 0.6f;
-
+    private float playerStanceSmoothing = 0.1f;
+    public CharacterStance playerStandStance;
+    public CharacterStance playerCrouchStance;
+    public CharacterStance playerProneStance;
+    private float stanceCheckErrorMargin = 0.05f;
     private float cameraHeight;
     private float cameraHeightVelocity;
+
+    private Vector3 stanceCapsuleCenterVelocity;
+    private float stanceCapsuleHeightVelocity;
 
     private bool isMidAir;
     public float rotationLerp = 0.5f;
@@ -50,6 +57,9 @@ public class scr_CharacterController : MonoBehaviour
     public Quaternion nextRotation;
 
     private bool isSprinting;
+
+    private Vector3 newMovementSpeed;
+    private Vector3 newMovementSpeedVelocity;
 
     private void Awake()
     {
@@ -59,6 +69,8 @@ public class scr_CharacterController : MonoBehaviour
         defaultInput.Character.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
         defaultInput.Character.View.performed += e => input_View = e.ReadValue<Vector2>();
         defaultInput.Character.Jump.performed += e => Jump();
+        defaultInput.Character.Crouch.performed += e => Crouch();
+        defaultInput.Character.Prone.performed += e => Prone();
         defaultInput.Character.Sprinting.performed += e => ToggleSprint();
 
         defaultInput.Enable();
@@ -75,7 +87,7 @@ public class scr_CharacterController : MonoBehaviour
         CalculateMovement();
         CalculateView();
         CalculateJump();
-        CalculateCameraHeight();
+        CalculateStance();
 
         //Set animator values
         anim.SetBool("isGrounded", characterController.isGrounded);
@@ -173,8 +185,8 @@ public class scr_CharacterController : MonoBehaviour
         isWalkingRight = false;
 
         //Make new movement vector and transform it to world space
-        var newMovementSpeed = new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime);
-        newMovementSpeed = transform.TransformDirection(newMovementSpeed);
+        newMovementSpeed = Vector3.SmoothDamp(newMovementSpeed, new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime), ref newMovementSpeedVelocity, playerSettings.MovementSmoothing);
+        var movementSpeed = transform.TransformDirection(newMovementSpeed);
 
         //Restrict max falling speed
         if (playerGravity > gravityMin && jumpingForce.y < 0.1f)
@@ -195,10 +207,10 @@ public class scr_CharacterController : MonoBehaviour
         }
 
         //Add gravity or jumping force if there is any and move player
-        newMovementSpeed.y += playerGravity;
-        newMovementSpeed += jumpingForce * Time.deltaTime;
+        movementSpeed.y += playerGravity;
+        movementSpeed += jumpingForce * Time.deltaTime;
 
-        characterController.Move(newMovementSpeed);
+        characterController.Move(movementSpeed);
     }
 
     private void CalculateJump()
@@ -206,22 +218,25 @@ public class scr_CharacterController : MonoBehaviour
         jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.zero, ref jumpingForceVelocity, playerSettings.JumpingFalloff);
     }
 
-    private void CalculateCameraHeight()
+    private void CalculateStance()
     {
 
-        var stanceHeight = cameraStandHeight;
+        var currentStance = playerStandStance;
 
         if (playerStance == PlayerStance.Crouch)
         {
-            stanceHeight = cameraCrouchHeight;
+            currentStance = playerCrouchStance;
         }
         else if (playerStance == PlayerStance.Prone)
         {
-            stanceHeight = cameraProneHeight;
+            currentStance = playerProneStance;
         }
 
-        cameraHeight = Mathf.SmoothDamp(cameraHolder.localPosition.y, stanceHeight, ref cameraHeightVelocity, playerStanceSmoothing);
+        cameraHeight = Mathf.SmoothDamp(cameraHolder.localPosition.y, currentStance.CameraHeight, ref cameraHeightVelocity, playerStanceSmoothing);
         cameraHolder.localPosition = new Vector3(cameraHolder.localPosition.x, cameraHeight, cameraHolder.localPosition.z);
+
+        characterController.height = Mathf.SmoothDamp(characterController.height, currentStance.StanceCollider.height, ref stanceCapsuleHeightVelocity, playerStanceSmoothing);
+        characterController.center = Vector3.SmoothDamp(characterController.center, currentStance.StanceCollider.center, ref stanceCapsuleCenterVelocity, playerStanceSmoothing);
     }
 
     private void Jump()
@@ -245,6 +260,56 @@ public class scr_CharacterController : MonoBehaviour
         }
     }
 
+    private void Crouch()
+    {
+        if(playerStance == PlayerStance.Crouch)
+        {
+            if (StanceCheck(playerStandStance.StanceCollider.height))
+            {
+                return;
+            }
+
+            playerStance = PlayerStance.Stand;
+            return;
+        } 
+        
+        if (StanceCheck(playerCrouchStance.StanceCollider.height))
+            {
+                return;
+            }
+
+        playerStance = PlayerStance.Crouch;
+    }
+
+    private void Prone()
+    {
+        if(playerStance == PlayerStance.Prone)
+        {
+            if (StanceCheck(playerStandStance.StanceCollider.height))
+            {
+                return;
+            }
+
+            playerStance = PlayerStance.Stand;
+            return;
+        }
+
+        if (StanceCheck(playerProneStance.StanceCollider.height))
+        {
+            return;
+        }
+
+        playerStance = PlayerStance.Prone;
+    }
+
+    private bool StanceCheck(float stanceCheckHeight)
+    {
+        var start = new Vector3(feetTransform.position.x, feetTransform.position.y + characterController.radius + stanceCheckErrorMargin, feetTransform.position.z);
+        var end = new Vector3(feetTransform.position.x, feetTransform.position.y - characterController.radius - stanceCheckErrorMargin + stanceCheckHeight, feetTransform.position.z);
+
+        return Physics.CheckCapsule(start, end, characterController.radius, playerMask);
+    }
+
     private void ToggleSprint()
     {
         if (input_Movement.y <= 0.2f)
@@ -255,4 +320,5 @@ public class scr_CharacterController : MonoBehaviour
 
         isSprinting = !isSprinting;
     }
+
 }
