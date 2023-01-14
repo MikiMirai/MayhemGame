@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -41,6 +42,8 @@ public class Gun : MonoBehaviour
     {
         if (gunData.currentAmmo > 0)
         {
+            //RaycastHit hitInfoStore = new RaycastHit();
+
             if (CanShoot())
             {
                 if (Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hitInfo, gunData.maxDistance))
@@ -49,14 +52,13 @@ public class Gun : MonoBehaviour
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.TakeDamage(gunData.damage);
-                    decalPainter.PaintDecal(hitInfo.point,hitInfo.normal,hitInfo.collider);
-
+                    //hitInfoStore = hitInfo;
                 }
             }
 
             gunData.currentAmmo--;
             timeSinceLastShot = 0;
-            OnGunShot();
+            //OnGunShot(hitInfoStore);
         }
     }
 
@@ -66,8 +68,9 @@ public class Gun : MonoBehaviour
         Debug.DrawRay(muzzle.position, muzzle.forward * gunData.maxDistance);
     }
 
-    private void OnGunShot()
+    private void OnGunShot(RaycastHit hitInfo)
     {
         //Debug.Log("Implement Effects with this!");
+        decalPainter.PaintDecal(hitInfo.point, hitInfo.normal, hitInfo.collider);
     }
 }
