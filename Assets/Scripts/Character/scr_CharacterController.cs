@@ -56,7 +56,8 @@ public class scr_CharacterController : MonoBehaviour
     public Vector3 nextPosition;
     public Quaternion nextRotation;
 
-    private bool isSprinting;
+    [Header("Sprint")]
+    public bool isSprinting;
 
     private Vector3 newMovementSpeed;
     private Vector3 newMovementSpeedVelocity;
