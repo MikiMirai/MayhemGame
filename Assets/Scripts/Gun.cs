@@ -5,6 +5,7 @@ public class Gun : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GunData gunData;
+    [SerializeField] private DecalPainter decalPainter;
     [SerializeField] private Transform muzzle;
 
     float timeSinceLastShot;
@@ -48,6 +49,9 @@ public class Gun : MonoBehaviour
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.TakeDamage(gunData.damage);
+                    Vector3 normalVector3 = hitInfo.normal;
+                    Vector3 pointVector3 = hitInfo.point;
+                    decalPainter.PaintDecal(pointVector3,normalVector3,hitInfo.collider);
                 }
             }
 
