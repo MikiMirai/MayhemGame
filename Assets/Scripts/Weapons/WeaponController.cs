@@ -12,6 +12,19 @@ public enum WeaponShootType
     Melee,
 }
 
+[System.Serializable]
+public struct CrosshairData
+{
+    [Tooltip("The image of this weapon's crosshair")]
+    public Sprite CrosshairSprite;
+
+    [Tooltip("The size of the crosshair")]
+    public int CrosshairSize;
+
+    [Tooltip("The color of the crosshair")]
+    public Color CrosshairColor;
+}
+
 public class WeaponController : MonoBehaviour
 {
     [Header("Information")]
@@ -26,6 +39,12 @@ public class WeaponController : MonoBehaviour
 
     [Tooltip("Tip of the weapon, where the projectiles are shot")]
     public Transform WeaponMuzzle;
+
+    [Tooltip("Default parameters for the crosshair")]
+    public CrosshairData CrosshairDataDefault;
+
+    [Tooltip("Parameters for the crosshair when targeting an enemy")]
+    public CrosshairData CrosshairDataTargetInSight;
 
     //Shoot params
     [Header("Shoot Parameters")]
