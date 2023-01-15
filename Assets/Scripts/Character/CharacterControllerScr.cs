@@ -4,7 +4,8 @@ using static PlayerModels;
 public class CharacterControllerScr : MonoBehaviour
 {
     //Attach animator to set values
-    public Animator anim;
+    [Header("Animation")]
+    public Animator animator;
     private bool isWalkingLeft;
     private bool isWalkingRight;
 
@@ -12,7 +13,6 @@ public class CharacterControllerScr : MonoBehaviour
     private DefaultInput defaultInput;
     private Vector2 input_Movement;
     private Vector2 input_View;
-
     private Vector3 newCharacterRotation;
 
     [Header("References")]
@@ -20,7 +20,6 @@ public class CharacterControllerScr : MonoBehaviour
     public Transform feetTransform;
     public GameObject ThirdPersonCamera;
     public LayerMask playerMask;
-
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -53,7 +52,7 @@ public class CharacterControllerScr : MonoBehaviour
     public Vector3 nextPosition;
     public Quaternion nextRotation;
 
-    [Header("Sprint")]
+    [Header("Debug")]
     public bool isSprinting;
 
     private Vector3 newMovementSpeed;
@@ -89,10 +88,10 @@ public class CharacterControllerScr : MonoBehaviour
         CalculateStance();
 
         //Set animator values
-        anim.SetBool("isGrounded", characterController.isGrounded);
-        anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
-        anim.SetBool("WalkingLeft", isWalkingLeft);
-        anim.SetBool("WalkingRight", isWalkingRight);
+        animator.SetBool("isGrounded", characterController.isGrounded);
+        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        animator.SetBool("WalkingLeft", isWalkingLeft);
+        animator.SetBool("WalkingRight", isWalkingRight);
     }
 
     private void CalculateView()

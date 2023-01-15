@@ -31642,13 +31642,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80c7e17b30173b4f8e05b69f5ca7e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 6332157740826504938}
+  animator: {fileID: 6332157740826504938}
   cameraHolder: {fileID: 6332157741608911990}
   feetTransform: {fileID: 1335558932}
   ThirdPersonCamera: {fileID: 708704980}
   playerMask:
     serializedVersion: 2
-    m_Bits: 4294902263
+    m_Bits: 512
   playerSettings:
     ViewXSensitivity: 6
     ViewYSensitivity: 6
@@ -31664,7 +31664,7 @@ MonoBehaviour:
   viewClampYMin: 300
   viewClampYMax: 80
   gravityAmount: 0.09
-  gravityMin: -3
+  gravityMin: -1
   jumpingForce: {x: 0, y: 0, z: 0}
   playerStance: 0
   playerStandStance:
@@ -36167,6 +36167,7 @@ GameObject:
   - component: {fileID: 2660344856198534351}
   - component: {fileID: 6803143554996554125}
   - component: {fileID: 6803143554996554126}
+  - component: {fileID: 6803143554996554127}
   m_Layer: 9
   m_Name: Assault Rifle
   m_TagString: Untagged
@@ -36216,6 +36217,20 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+--- !u!114 &6803143554996554127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6803143554996554124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937f75f305fa8bb49bf611b381545eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 1
+  multiplier: 1
 --- !u!4 &7139579250850838246
 Transform:
   m_ObjectHideFlags: 0
