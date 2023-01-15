@@ -42,7 +42,6 @@ public class Gun : MonoBehaviour
     {
         if (gunData.currentAmmo > 0)
         {
-            RaycastHit hitInfoStore = new RaycastHit();
 
             if (CanShoot())
             {
@@ -52,13 +51,13 @@ public class Gun : MonoBehaviour
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.TakeDamage(gunData.damage);
-                    hitInfoStore = hitInfo;
+                    decalPainter.PaintDecal(hitInfo.point, hitInfo.normal, hitInfo.collider);
                 }
             }
 
             gunData.currentAmmo--;
             timeSinceLastShot = 0;
-            OnGunShot(hitInfoStore);
+            OnGunShot();
         }
     }
 
@@ -68,9 +67,9 @@ public class Gun : MonoBehaviour
         Debug.DrawRay(muzzle.position, muzzle.forward * gunData.maxDistance);
     }
 
-    private void OnGunShot(RaycastHit hitInfo)
+    private void OnGunShot()
     {
         //Debug.Log("Implement Effects with this!");
-        decalPainter.PaintDecal(hitInfo.point, hitInfo.normal, hitInfo.collider);
+        
     }
 }

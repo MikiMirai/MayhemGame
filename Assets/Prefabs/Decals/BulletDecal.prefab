@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4124269516126151331}
   - component: {fileID: 4124269516126151330}
+  - component: {fileID: 5400098914752901739}
   m_Layer: 0
   m_Name: BulletDecal
   m_TagString: Decal
@@ -58,3 +59,16 @@ MonoBehaviour:
   m_Size: {x: 0.25, y: 0.25, z: 1}
   m_FadeFactor: 1
   m_Version: 2
+--- !u!114 &5400098914752901739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4124269516126151357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784d8bd73a401964ba0d0712583a7ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeToLive: 2
