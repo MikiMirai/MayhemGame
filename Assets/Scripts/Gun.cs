@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
     {
         if (gunData.currentAmmo > 0)
         {
-            //RaycastHit hitInfoStore = new RaycastHit();
+            RaycastHit hitInfoStore = new RaycastHit();
 
             if (CanShoot())
             {
@@ -52,13 +52,13 @@ public class Gun : MonoBehaviour
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.TakeDamage(gunData.damage);
-                    //hitInfoStore = hitInfo;
+                    hitInfoStore = hitInfo;
                 }
             }
 
             gunData.currentAmmo--;
             timeSinceLastShot = 0;
-            //OnGunShot(hitInfoStore);
+            OnGunShot(hitInfoStore);
         }
     }
 
