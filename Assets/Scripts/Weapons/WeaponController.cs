@@ -9,7 +9,6 @@ public enum WeaponShootType
     Manual,
     Automatic,
     Charge,
-    Melee,
 }
 
 [System.Serializable]
@@ -68,13 +67,13 @@ public class WeaponController : MonoBehaviour
     [Tooltip("Ratio of the default FOV that this weapon applies while aiming")]
     public float AimZoomRatio = 1f;
 
-    //Ammo params
     [Tooltip("Ammo UI reference")]
     public TextMeshProUGUI ammoText;
 
     [Tooltip("The projectile prefab")] 
     public ProjectileBase ProjectilePrefab;
 
+    //Ammo params
     [Header("Ammo Parameters")]
     [Tooltip("Should the player manually reload")]
     public bool AutomaticReload = true;
@@ -92,23 +91,38 @@ public class WeaponController : MonoBehaviour
     public Transform EjectionPort;
 
     [Range(0.0f, 5.0f)]
-    [Tooltip("Force applied on the shell")]
+    [Tooltip("Force applied on the shell when ejecting")]
     public float ShellCasingEjectionForce = 2.0f;
 
     [Range(1, 30)]
-    [Tooltip("Maximum number of shell that can be spawned before reuse")]
+    [Tooltip("Maximum number of shells that can be spawned before reuse")]
     public int ShellPoolSize = 1;
 
     [Tooltip("Amount of ammo reloaded per second")]
     public float AmmoReloadRate = 1f;
 
-    [Tooltip("Maximum amount of ammo on the player")]
+    [Tooltip("Maximum amount of ammo carried by the player")]
     public int MaxAmmo = 8;
+
+    //Charge params
+    [Header("Charging weapon parameters (charging weapons only)")]
+    [Tooltip("Trigger a shot when maximum charge is reached")]
+    public bool AutomaticReleaseOnCharged;
+
+    [Tooltip("Duration to reach maximum charge (in sec)")]
+    public float MaxChargeDuration = 2f;
+
+    [Tooltip("Ammo used when starting to charge")]
+    public float AmmoUsedOnStartCharge = 1f;
+
+    [Tooltip("Additional ammo used when charge reaches its maximum (if any)")]
+    public float AmmoUsageRateWhileCharging = 1f;
 
     //Audio & Visual effects
     [Header("Audio & Visual")]
-    [Tooltip("Optional weapon animator for OnShoot animations")]
+    [Tooltip("Optional weapon animator for shooting animations")]
     public Animator WeaponAnimator;
+    const string k_AnimAttackParameter = "Attack";
 
     public UnityAction OnShoot;
     public event Action OnShootProcessed;
@@ -118,21 +132,27 @@ public class WeaponController : MonoBehaviour
     int m_CarriedPhysicalBullets;
     float m_LastTimeShot = Mathf.NegativeInfinity;
     Vector3 m_LastMuzzlePosition;
-    const string k_AnimAttackParameter = "Attack";
 
     public GameObject Owner { get; set; }
     public GameObject SourcePrefab { get; set; }
+    //Charging
+    public bool IsCharging { get; private set; }
+    public float CurrentCharge { get; private set; }
+    public float LastChargeTriggerTimestamp { get; private set; }
+    //Reload
     public bool IsReloading { get; private set; }
     public float CurrentAmmoRatio { get; private set; }
-
+    //Active weapon?
     public bool IsWeaponActive { get; private set; }
     public Vector3 MuzzleWorldVelocity { get; private set; }
-
+    //Carried ammo
     private Queue<Rigidbody> m_PhysicalAmmoPool;
 
-    public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
-    
     public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
+    public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
+    public float GetAmmoNeededToShoot() =>
+            (ShootType != WeaponShootType.Charge ? 1f : Mathf.Max(1f, AmmoUsedOnStartCharge)) /
+            (MaxAmmo * BulletsPerShot);
 
     private void Awake()
     {
@@ -151,9 +171,11 @@ public class WeaponController : MonoBehaviour
                 m_PhysicalAmmoPool.Enqueue(shell.GetComponent<Rigidbody>());
             }
         }
+
+        //TODO: Add audio for the guns
     }
 
-    public void AddCarriablePhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
+    public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
 
     void ShootShell()
     {
@@ -179,11 +201,12 @@ public class WeaponController : MonoBehaviour
         IsReloading = false;
     }
 
-    //TODO: Reloading animation
+    //TODO: Add reloading animation
 
     private void Update()
     {
         UpdateAmmo();
+        UpdateCharge();
 
         if (Time.deltaTime > 0)
         {
@@ -196,6 +219,40 @@ public class WeaponController : MonoBehaviour
     {
         //TODO: Update UI ammo
         ammoText.text = $"{m_CurrentAmmo} / {m_CarriedPhysicalBullets}";
+    }
+
+    void UpdateCharge()
+    {
+        if (IsCharging)
+        {
+            if (CurrentCharge < 1f)
+            {
+                float chargeLeft = 1f - CurrentCharge;
+
+                float chargeAdded = 0f;
+                if (MaxChargeDuration <= 0f)
+                {
+                    chargeAdded = chargeLeft;
+                }
+                else
+                {
+                    chargeAdded = (1f / MaxChargeDuration) * Time.deltaTime;
+                }
+
+                chargeAdded = Mathf.Clamp(chargeAdded, 0f, chargeLeft);
+
+                // Check if the charge can actually be added
+                float ammoThisChargeWouldRequire = chargeAdded * AmmoUsageRateWhileCharging;
+                if (ammoThisChargeWouldRequire <= m_CurrentAmmo)
+                {
+                    // Use ammo that the charge requires
+                    UseAmmo(ammoThisChargeWouldRequire);
+
+                    // Set the current charge
+                    CurrentCharge = Mathf.Clamp01(CurrentCharge + chargeAdded);
+                }
+            }
+        }
     }
 
     public void ShowWeapon(bool show)
@@ -234,6 +291,20 @@ public class WeaponController : MonoBehaviour
 
                 return false;
 
+            case WeaponShootType.Charge:
+                if (inputHeld)
+                {
+                    TryBeginCharge();
+                }
+
+                // Either player shoots by releasing button or weapon shoots automatically on full charge
+                if (inputUp || (AutomaticReleaseOnCharged && CurrentCharge >= 1f))
+                {
+                    return TryReleaseCharge();
+                }
+
+                return false;
+
             default:
                 return false;
         }
@@ -252,15 +323,50 @@ public class WeaponController : MonoBehaviour
         return false;
     }
 
+    bool TryBeginCharge()
+    {
+        if (!IsCharging
+            && m_CurrentAmmo >= AmmoUsedOnStartCharge
+            && Mathf.FloorToInt((m_CurrentAmmo - AmmoUsedOnStartCharge) * BulletsPerShot) > 0
+            && m_LastTimeShot + DelayBetweenShots < Time.time)
+        {
+            UseAmmo(AmmoUsedOnStartCharge);
+
+            LastChargeTriggerTimestamp = Time.time;
+            IsCharging = true;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool TryReleaseCharge()
+    {
+        if (IsCharging)
+        {
+            HandleShoot();
+
+            CurrentCharge = 0f;
+            IsCharging = false;
+
+            return true;
+        }
+
+        return false;
+    }
+
     void HandleShoot()
     {
-        int bulletsPerShotFinal = BulletsPerShot;
+        int bulletsPerShotFinal = ShootType == WeaponShootType.Charge
+                ? Mathf.CeilToInt(CurrentCharge * BulletsPerShot)
+                : BulletsPerShot;
 
         //Spawn all bullets with random directions
         for (int i = 0; i < bulletsPerShotFinal; i++)
         {
             Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
-            ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position, 
+            ProjectileBase newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
                 Quaternion.LookRotation(shotDirection));
             newProjectile.Shoot(this);
         }
@@ -277,7 +383,7 @@ public class WeaponController : MonoBehaviour
 
         //TODO: Play shooting SFX
 
-        //Trigger attack animation if any
+        //Trigger attack animation if there is an animator
         if (WeaponAnimator)
         {
             WeaponAnimator.SetTrigger(k_AnimAttackParameter);
@@ -287,10 +393,10 @@ public class WeaponController : MonoBehaviour
         OnShootProcessed?.Invoke();
     }
 
-    public Vector3 GetShotDirectionWithinSpread(Transform shooTransform)
+    public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
     {
         float spreadAngleRation = BulletSpreadAngle / 180f;
-        Vector3 spreadWorldDirection = Vector3.Slerp(shooTransform.forward, UnityEngine.Random.insideUnitSphere, spreadAngleRation);
+        Vector3 spreadWorldDirection = Vector3.Slerp(shootTransform.forward, UnityEngine.Random.insideUnitSphere, spreadAngleRation);
 
         return spreadWorldDirection;
     }
