@@ -67,8 +67,8 @@ public class WeaponController : MonoBehaviour
     [Tooltip("Ratio of the default FOV that this weapon applies while aiming")]
     public float AimZoomRatio = 1f;
 
-    [Tooltip("Ammo UI reference")]
-    public TextMeshProUGUI ammoText;
+    //[Tooltip("Ammo UI reference")]
+    //public TextMeshProUGUI ammoText;
 
     [Tooltip("The projectile prefab")] 
     public ProjectileBase ProjectilePrefab;
@@ -221,7 +221,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        UpdateAmmo();
+        //UpdateAmmo();
         UpdateCharge();
 
         if (Time.deltaTime > 0)
@@ -231,11 +231,11 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    void UpdateAmmo()
-    {
-        //TODO: Update UI ammo
-        ammoText.text = $"{m_CurrentAmmo} / {m_CarriedPhysicalBullets}";
-    }
+    //void UpdateAmmo()
+    //{
+    //    //TODO: Update UI ammo
+    //    ammoText.text = $"{m_CurrentAmmo} / {m_CarriedPhysicalBullets}";
+    //}
 
     void UpdateCharge()
     {
