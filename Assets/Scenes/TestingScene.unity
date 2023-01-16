@@ -36168,6 +36168,7 @@ GameObject:
   - component: {fileID: 6803143554996554125}
   - component: {fileID: 6803143554996554126}
   - component: {fileID: 6803143554996554127}
+  - component: {fileID: 6803143554996554128}
   m_Layer: 9
   m_Name: Assault Rifle
   m_TagString: Untagged
@@ -36182,7 +36183,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6803143554996554124}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d70cf64e5f701a74f811cc11a11f78fb, type: 3}
   m_Name: 
@@ -36231,6 +36232,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smooth: 1
   multiplier: 1
+--- !u!114 &6803143554996554128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6803143554996554124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b993b95d91717474399464f1a0db57c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decalPainter: {fileID: 6803143554996554126}
+  damage: 10
+  range: 100
+  fireRate: 15
+  nextTimeToFire: 0
+  ImpactForse: 30
+  muzzle: {fileID: 164357042}
+  impactEffect: {fileID: 0}
 --- !u!4 &7139579250850838246
 Transform:
   m_ObjectHideFlags: 0

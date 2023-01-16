@@ -82,7 +82,7 @@ public class WeaponController : MonoBehaviour
     public bool HasPhysicalBullets = false;
 
     [Tooltip("Number of bullets in a clip")]
-    public int ClipSize = 30;
+    public int MaxCarriableAmmo = 30;
 
     [Tooltip("Bullet Shell Casing")]
     public GameObject ShellCasing;
@@ -102,7 +102,7 @@ public class WeaponController : MonoBehaviour
     public float AmmoReloadRate = 1f;
 
     [Tooltip("Maximum amount of ammo carried by the player")]
-    public int MaxAmmo = 8;
+    public int MaxWeaponAmmo = 8;
 
     //Charge params
     [Header("Charging weapon parameters (charging weapons only)")]
@@ -152,12 +152,13 @@ public class WeaponController : MonoBehaviour
     public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
     public float GetAmmoNeededToShoot() =>
             (ShootType != WeaponShootType.Charge ? 1f : Mathf.Max(1f, AmmoUsedOnStartCharge)) /
-            (MaxAmmo * BulletsPerShot);
+            (MaxWeaponAmmo * BulletsPerShot);
 
     private void Awake()
     {
-        m_CurrentAmmo = MaxAmmo;
-        m_CarriedPhysicalBullets = HasPhysicalBullets ? ClipSize : 0;
+        //player save?
+        m_CurrentAmmo = MaxWeaponAmmo;
+        m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
         m_LastMuzzlePosition = WeaponMuzzle.position;
 
         if (HasPhysicalBullets)
@@ -175,8 +176,9 @@ public class WeaponController : MonoBehaviour
         //TODO: Add audio for the guns
     }
 
-    public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
+    //change it so it doesnt go higher than MaxWeaponAmmo
 
+    public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxWeaponAmmo);
     void ShootShell()
     {
         Rigidbody nextShell = m_PhysicalAmmoPool.Dequeue();
@@ -193,15 +195,29 @@ public class WeaponController : MonoBehaviour
 
     void Reload()
     {
-        if (m_CarriedPhysicalBullets > 0)
+        if (m_CarriedPhysicalBullets < MaxWeaponAmmo)
         {
-            m_CurrentAmmo = Mathf.Min(m_CarriedPhysicalBullets, ClipSize);
-        }
+            m_CurrentAmmo = Mathf.Min(m_CarriedPhysicalBullets, MaxWeaponAmmo);
 
+            m_CarriedPhysicalBullets = 0;
+        }
+        else
+        {
+            m_CarriedPhysicalBullets -= MaxWeaponAmmo;
+            m_CurrentAmmo = MaxWeaponAmmo;
+        }     
         IsReloading = false;
     }
 
-    //TODO: Add reloading animation
+    public void StartReloadAnimation()
+    {
+        if (m_CurrentAmmo < m_CarriedPhysicalBullets)
+        {
+            //GetComponent<Animator>().SetTrigger("Reload");
+            IsReloading = true;
+            Reload();
+        }
+    }
 
     private void Update()
     {
@@ -264,9 +280,9 @@ public class WeaponController : MonoBehaviour
 
     public void UseAmmo(float amount)
     {
-        m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo - amount, 0f, MaxAmmo);
+        m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo - amount, 0f, MaxWeaponAmmo);
         m_CarriedPhysicalBullets -= Mathf.RoundToInt(amount);
-        m_CarriedPhysicalBullets = Mathf.Clamp(m_CarriedPhysicalBullets, 0, MaxAmmo);
+        m_CarriedPhysicalBullets = Mathf.Clamp(m_CarriedPhysicalBullets, 0, MaxWeaponAmmo);
         m_LastTimeShot = Time.time;
     }
 
@@ -376,7 +392,7 @@ public class WeaponController : MonoBehaviour
         if (HasPhysicalBullets)
         {
             ShootShell();
-            m_CarriedPhysicalBullets--;
+            //m_CarriedPhysicalBullets--; GARBAGE
         }
 
         m_LastTimeShot = Time.time;

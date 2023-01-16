@@ -107,6 +107,24 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""725d8363-474c-41d9-9a6b-2225b0291006"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwithWeaponUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""07bd8b92-faf7-43f7-b26f-30c8330ff2a6"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -263,6 +281,28 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""action"": ""Prone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bdb08119-316a-4931-86dd-42bc15ec5656"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f18239b-e6e1-45e5-8bfb-b0854698863b"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwithWeaponUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -280,6 +320,8 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         m_Character_SprintReleased = m_Character.FindAction("SprintReleased", throwIfNotFound: true);
         m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
         m_Character_Prone = m_Character.FindAction("Prone", throwIfNotFound: true);
+        m_Character_Reload = m_Character.FindAction("Reload", throwIfNotFound: true);
+        m_Character_SwithWeaponUp = m_Character.FindAction("SwithWeaponUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -348,6 +390,8 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_SprintReleased;
     private readonly InputAction m_Character_Crouch;
     private readonly InputAction m_Character_Prone;
+    private readonly InputAction m_Character_Reload;
+    private readonly InputAction m_Character_SwithWeaponUp;
     public struct CharacterActions
     {
         private @DefaultInput m_Wrapper;
@@ -361,6 +405,8 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         public InputAction @SprintReleased => m_Wrapper.m_Character_SprintReleased;
         public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
         public InputAction @Prone => m_Wrapper.m_Character_Prone;
+        public InputAction @Reload => m_Wrapper.m_Character_Reload;
+        public InputAction @SwithWeaponUp => m_Wrapper.m_Character_SwithWeaponUp;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -397,6 +443,12 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Prone.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnProne;
                 @Prone.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnProne;
                 @Prone.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnProne;
+                @Reload.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnReload;
+                @SwithWeaponUp.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSwithWeaponUp;
+                @SwithWeaponUp.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSwithWeaponUp;
+                @SwithWeaponUp.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSwithWeaponUp;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -428,6 +480,12 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Prone.started += instance.OnProne;
                 @Prone.performed += instance.OnProne;
                 @Prone.canceled += instance.OnProne;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
+                @SwithWeaponUp.started += instance.OnSwithWeaponUp;
+                @SwithWeaponUp.performed += instance.OnSwithWeaponUp;
+                @SwithWeaponUp.canceled += instance.OnSwithWeaponUp;
             }
         }
     }
@@ -443,5 +501,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         void OnSprintReleased(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnProne(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
+        void OnSwithWeaponUp(InputAction.CallbackContext context);
     }
 }
