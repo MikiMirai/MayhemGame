@@ -116,15 +116,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwitchWeapon"",
-                    ""type"": ""Value"",
-                    ""id"": ""07bd8b92-faf7-43f7-b26f-30c8330ff2a6"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -273,17 +264,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1f18239b-e6e1-45e5-8bfb-b0854698863b"",
-                    ""path"": ""<Mouse>/scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""bdb08119-316a-4931-86dd-42bc15ec5656"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -321,7 +301,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         m_Character_SprintReleased = m_Character.FindAction("SprintReleased", throwIfNotFound: true);
         m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
         m_Character_Prone = m_Character.FindAction("Prone", throwIfNotFound: true);
-        m_Character_SwitchWeapon = m_Character.FindAction("SwitchWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -391,7 +370,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_SprintReleased;
     private readonly InputAction m_Character_Crouch;
     private readonly InputAction m_Character_Prone;
-    private readonly InputAction m_Character_SwitchWeapon;
     public struct CharacterActions
     {
         private @DefaultInput m_Wrapper;
@@ -406,7 +384,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         public InputAction @SprintReleased => m_Wrapper.m_Character_SprintReleased;
         public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
         public InputAction @Prone => m_Wrapper.m_Character_Prone;
-        public InputAction @SwitchWeapon => m_Wrapper.m_Character_SwitchWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -446,9 +423,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Prone.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnProne;
                 @Prone.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnProne;
                 @Prone.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnProne;
-                @SwitchWeapon.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSwitchWeapon;
-                @SwitchWeapon.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSwitchWeapon;
-                @SwitchWeapon.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSwitchWeapon;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -483,9 +457,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Prone.started += instance.OnProne;
                 @Prone.performed += instance.OnProne;
                 @Prone.canceled += instance.OnProne;
-                @SwitchWeapon.started += instance.OnSwitchWeapon;
-                @SwitchWeapon.performed += instance.OnSwitchWeapon;
-                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
             }
         }
     }
@@ -502,6 +473,5 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         void OnSprintReleased(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnProne(InputAction.CallbackContext context);
-        void OnSwitchWeapon(InputAction.CallbackContext context);
     }
 }

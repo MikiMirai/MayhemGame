@@ -94,15 +94,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "SwitchWeapon",
-                    "type": "Value",
-                    "id": "07bd8b92-faf7-43f7-b26f-30c8330ff2a6",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -246,17 +237,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Prone",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1f18239b-e6e1-45e5-8bfb-b0854698863b",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
