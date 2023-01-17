@@ -1,16 +1,19 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour {
 
     private int currentHealth;
     public int healthMax = 100;
-    public TextMeshProUGUI healthBar;
+    public Slider healthBar;
+    public TextMeshProUGUI healthText;
 
     private void Start()
     {
         currentHealth = healthMax;
-        healthBar.text = "Health: " + currentHealth;
+        healthText.text = "Health: " + currentHealth;
+        healthBar.value = currentHealth;
     }
 
     // Gets your current health
@@ -31,10 +34,11 @@ public class HealthSystem : MonoBehaviour {
             currentHealth = 0;
         }
 
-        healthBar.text = "Health: " + currentHealth;
+        healthText.text = "Health: " + currentHealth;
+        healthBar.value = currentHealth;
     }
 
-    
+
     public void Heal(int healAmount)
     {
         // Healing the current health
@@ -46,6 +50,7 @@ public class HealthSystem : MonoBehaviour {
             currentHealth = healthMax;
         }
 
-        healthBar.text = "Health: " + currentHealth;
+        healthText.text = "Health: " + currentHealth;
+        healthBar.value = currentHealth;
     }
 }

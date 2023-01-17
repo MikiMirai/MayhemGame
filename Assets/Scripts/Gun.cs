@@ -1,11 +1,12 @@
-using System;
 using System.Collections;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GunData gunData;
+    [SerializeField] private DecalPainter decalPainter;
     [SerializeField] private Transform muzzle;
 
     float timeSinceLastShot;
@@ -41,6 +42,7 @@ public class Gun : MonoBehaviour
     {
         if (gunData.currentAmmo > 0)
         {
+
             if (CanShoot())
             {
                 if (Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hitInfo, gunData.maxDistance))
@@ -49,6 +51,7 @@ public class Gun : MonoBehaviour
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.TakeDamage(gunData.damage);
+                    decalPainter.PaintDecal(hitInfo.point, hitInfo.normal, hitInfo.collider);
                 }
             }
 
@@ -67,5 +70,6 @@ public class Gun : MonoBehaviour
     private void OnGunShot()
     {
         //Debug.Log("Implement Effects with this!");
+        
     }
 }
