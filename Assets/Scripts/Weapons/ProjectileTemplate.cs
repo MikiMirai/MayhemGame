@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class ProjectileTemplate : ProjectileBase
@@ -107,7 +106,7 @@ public class ProjectileTemplate : ProjectileBase
 
     void Update()
     {
-        // Move
+        // Move projectile
         transform.position += m_Velocity * Time.deltaTime;
         if (InheritWeaponVelocity)
         {
@@ -183,6 +182,12 @@ public class ProjectileTemplate : ProjectileBase
 
     bool IsHitValid(RaycastHit hit)
     {
+        // ignore hits with triggers that don't have a Damageable component
+        if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
+        {
+            return false;
+        }
+
         // ignore hits with specific ignored colliders (self colliders, by default)
         if (m_IgnoredColliders != null && m_IgnoredColliders.Contains(hit.collider))
         {
@@ -194,14 +199,13 @@ public class ProjectileTemplate : ProjectileBase
 
     void OnHit(Vector3 point, Vector3 normal, Collider collider)
     {
-        HealthSystem damageable = collider.GetComponent<HealthSystem>();
+        Damageable damageable = collider.GetComponent<Damageable>();
         if (damageable)
         {
-            Debug.Log($"{collider.transform.name} taken damage!");
-            damageable.TakeDamage(Damage);
+            damageable.InflictDamage(Damage, false, m_ProjectileBase.Owner);
         }
 
-        // Self Destruct
+        // Self destruct
         Destroy(this.gameObject);
     }
 
