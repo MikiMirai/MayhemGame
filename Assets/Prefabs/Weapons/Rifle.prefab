@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1159963534975718687}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2332230923500157573}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1209076514521330156}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Ejection Port
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 8001803793705222357}
   - component: {fileID: 7096640952691010746}
   - component: {fileID: 4922978440664527992}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Holdin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 5404667301655287149}
   - component: {fileID: 1101379232057323821}
   - component: {fileID: 5893335072558875150}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 5217985445088030915}
   - component: {fileID: 4247314017554619243}
   - component: {fileID: 806004667857244182}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8347070274537618442}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,10 +428,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 339685485278645752}
-  - component: {fileID: 9093929487303528633}
   - component: {fileID: 9093929487303528632}
   - component: {fileID: 5050839044496076680}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,33 +455,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9093929487303528633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093929487303528635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1716e7827cde674468a3eaa5cf2a8e5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  decalData:
-  - sprite: {fileID: 21300000, guid: cc316467606abc84a84c7414103d6c33, type: 3}
-    size: {x: 0.2, y: 0.2, z: 0.2}
-  decalPorjectorPrefab: {fileID: 4124269516126151357, guid: 6b2bd201d90a2d84c92da93852b5f479, type: 3}
-  selectedDecalIndex: 0
-  decalImage: {fileID: 0}
-  decalSwitchAction:
-    m_Name: Decal Switch
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: dd2965d6-21bd-4a38-8146-b81212e96589
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!114 &9093929487303528632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +494,7 @@ MonoBehaviour:
     CrosshairSize: 1
     CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
   ShootType: 1
-  DelayBetweenShots: 0.5
+  DelayBetweenShots: 0.2
   BulletSpreadAngle: 0
   BulletsPerShot: 1
   RecoilForce: 1
