@@ -137,11 +137,11 @@ public class PlayerWeaponsManager : MonoBehaviour
                 m_InputHandler.GetFireInputReleased());
 
             // Add and clam recoil
-            //if (hasFired)
-            //{
-            //    m_AccumulatedRecoil += Vector3.back * activeWeapon.RecoilForce;
-            //    m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, MaxRecoilDistance);
-            //}
+            if (hasFired)
+            {
+                m_AccumulatedRecoil += Vector3.back * activeWeapon.RecoilForce;
+                m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, MaxRecoilDistance);
+            }
         }
 
         // Weapon switch handling
@@ -187,7 +187,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     {
         //UpdateWeaponAiming();
         //UpdateWeaponBob();
-        //UpdateWeaponRecoil();
+        UpdateWeaponRecoil();
         UpdateWeaponSwitching();
 
         // Set final weapon socket position based on all the combined animation influences
@@ -326,22 +326,22 @@ public class PlayerWeaponsManager : MonoBehaviour
     //}
 
     // Updates the weapon recoil animation
-    //void UpdateWeaponRecoil()
-    //{
-    //    // if the accumulated recoil is further away from the current position, make the current position move towards the recoil target
-    //    if (m_WeaponRecoilLocalPosition.z >= m_AccumulatedRecoil.z * 0.99f)
-    //    {
-    //        m_WeaponRecoilLocalPosition = Vector3.Lerp(m_WeaponRecoilLocalPosition, m_AccumulatedRecoil,
-    //            RecoilSharpness * Time.deltaTime);
-    //    }
-    //    // otherwise, move recoil position to make it recover towards its resting pose
-    //    else
-    //    {
-    //        m_WeaponRecoilLocalPosition = Vector3.Lerp(m_WeaponRecoilLocalPosition, Vector3.zero,
-    //            RecoilRestitutionSharpness * Time.deltaTime);
-    //        m_AccumulatedRecoil = m_WeaponRecoilLocalPosition;
-    //    }
-    //}
+    void UpdateWeaponRecoil()
+    {
+        // if the accumulated recoil is further away from the current position, make the current position move towards the recoil target
+        if (m_WeaponRecoilLocalPosition.z >= m_AccumulatedRecoil.z * 0.99f)
+        {
+            m_WeaponRecoilLocalPosition = Vector3.Lerp(m_WeaponRecoilLocalPosition, m_AccumulatedRecoil,
+                RecoilSharpness * Time.deltaTime);
+        }
+        // otherwise, move recoil position to make it recover towards its resting pose
+        else
+        {
+            m_WeaponRecoilLocalPosition = Vector3.Lerp(m_WeaponRecoilLocalPosition, Vector3.zero,
+                RecoilRestitutionSharpness * Time.deltaTime);
+            m_AccumulatedRecoil = m_WeaponRecoilLocalPosition;
+        }
+    }
 
     // Updates the animated transition of switching weapons
     void UpdateWeaponSwitching()
