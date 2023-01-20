@@ -34502,9 +34502,9 @@ MonoBehaviour:
   BobSharpness: 10
   DefaultBobAmount: 0.05
   AimingBobAmount: 0.02
-  RecoilSharpness: 50
-  MaxRecoilDistance: 0.5
-  RecoilRestitutionSharpness: 10
+  RecoilSharpness: 30
+  MaxRecoilDistance: 0.2
+  RecoilRestitutionSharpness: 8
   AimingAnimationSpeed: 10
   DefaultFov: 60
   WeaponFovMultiplier: 1
