@@ -1,10 +1,11 @@
 using UnityEngine;
 using static PlayerModels;
 
-public class CharacterControllerScr : MonoBehaviour
+public class PlayerControllerScr : MonoBehaviour
 {
     //Attach animator to set values
     [Header("Animation")]
+    [Tooltip("Player's animtor goes here")]
     public Animator animator;
     private bool isWalkingLeft;
     private bool isWalkingRight;
@@ -16,29 +17,43 @@ public class CharacterControllerScr : MonoBehaviour
     private Vector3 newCharacterRotation;
 
     [Header("References")]
+    [Tooltip("Neck-height object for first person camera and weapons")]
     public Transform cameraHolder;
+    [Tooltip("Empty game object placed at feet")]
     public Transform feetTransform;
+    [Tooltip("Third person camera holder")]
     public GameObject ThirdPersonCamera;
+    [Tooltip("Choose the player layer to be checked for the stances")]
     public LayerMask playerMask;
 
     [Header("Settings")]
+    [Tooltip("Most of player's settings")]
     public PlayerSettingsModel playerSettings;
-    public float viewClampYMin = -70;
+    [Tooltip("Min rotation while looking down/up")]
+    public float viewClampYMin = 300;
+    [Tooltip("Max rotation while looking down/up")]
     public float viewClampYMax = 80;
 
     [Header("Gravity")]
+    [Tooltip("Amount of gravity applied to player when falling")]
     public float gravityAmount;
+    [Tooltip("Max amount of gravity force when falling")]
     public float gravityMin;
     private float playerGravity;
 
+    [Tooltip("")]
     public Vector3 jumpingForce;
     private Vector3 jumpingForceVelocity;
 
     [Header("Stance")]
+    [Tooltip("The current player stance")]
     public PlayerStance playerStance;
     private float playerStanceSmoothing = 0.1f;
+    [Tooltip("Player height when standing and it's collider")]
     public CharacterStance playerStandStance;
+    [Tooltip("Player height when crouching and it's collider")]
     public CharacterStance playerCrouchStance;
+    [Tooltip("Player height when proning and it's collider")]
     public CharacterStance playerProneStance;
     private float stanceCheckErrorMargin = 0.05f;
     private float cameraHeight;
@@ -53,6 +68,7 @@ public class CharacterControllerScr : MonoBehaviour
     public Quaternion nextRotation;
 
     [Header("Debug")]
+    [Tooltip("If the player is sprinting, for debug")]
     public bool isSprinting;
 
     private Vector3 newMovementSpeed;

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     DefaultInput playerControls;
-    CharacterControllerScr m_PlayerCharacterController;
+    PlayerControllerScr m_PlayerCharacterController;
     bool m_FireInputWasHeld;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     void Start()
     {
-        m_PlayerCharacterController = GetComponent<CharacterControllerScr>();
+        m_PlayerCharacterController = GetComponent<PlayerControllerScr>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
