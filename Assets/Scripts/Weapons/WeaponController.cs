@@ -157,7 +157,7 @@ public class WeaponController : MonoBehaviour
     //Carried ammo
     private Queue<Rigidbody> m_PhysicalAmmoPool;
 
-    private AudioSource m_weaponAudioSource;
+    private AudioSource m_WeaponAudioSource;
 
     public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
     public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
@@ -171,7 +171,7 @@ public class WeaponController : MonoBehaviour
         m_CurrentAmmo = MaxWeaponAmmo;
         m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
         m_LastMuzzlePosition = WeaponMuzzle.position;
-        m_weaponAudioSource = GetComponent<AudioSource>();
+        m_WeaponAudioSource = GetComponent<AudioSource>();
 
         if (HasPhysicalBullets)
         {
@@ -219,10 +219,9 @@ public class WeaponController : MonoBehaviour
             m_CarriedPhysicalBullets -= MaxWeaponAmmo;
             m_CurrentAmmo = MaxWeaponAmmo;
         }
-        if (ReloadSfx)
-        {
-            m_weaponAudioSource.PlayOneShot(ReloadSfx);
-        }
+
+        
+
         IsReloading = false;
     }
 
@@ -232,6 +231,11 @@ public class WeaponController : MonoBehaviour
         {
             //GetComponent<Animator>().SetTrigger("Reload");
             IsReloading = true;
+            if (ReloadSfx)
+            {
+                m_WeaponAudioSource.PlayOneShot(ReloadSfx);
+            }
+
             Reload();
         }
     }
@@ -415,7 +419,7 @@ public class WeaponController : MonoBehaviour
         //TODO: Play shooting SFX
         if (ShootSfx)
         {
-            m_weaponAudioSource.PlayOneShot(ShootSfx);
+            m_WeaponAudioSource.PlayOneShot(ShootSfx);
         }
 
         //Trigger attack animation if there is an animator
