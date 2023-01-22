@@ -229,6 +229,14 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void CalculateJump()
     {
+        if (characterController.isGrounded)
+        {
+            isMidAir = false;
+        }
+        else
+        {
+            isMidAir = true;
+        }
         jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.zero, ref jumpingForceVelocity, playerSettings.JumpingFalloff);
     }
 
