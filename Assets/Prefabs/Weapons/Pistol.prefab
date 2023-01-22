@@ -307,9 +307,9 @@ MonoBehaviour:
   AimZoomRatio: 1
   ProjectilePrefab: {fileID: 4911322224840512839, guid: 26cc5d9566b94e14dbde8e8a3d24402d, type: 3}
   AutomaticReload: 0
-  HasPhysicalBullets: 0
+  HasPhysicalBullets: 1
   MaxCarriableAmmo: 30
-  ShellCasing: {fileID: 3425674778976449571, guid: 29f53c3c221be9249b11109385a612b7, type: 3}
+  ShellCasing: {fileID: 6133192479681192120, guid: d2d4612795923c94a9934952eba46b9f, type: 3}
   EjectionPort: {fileID: 6422515387149886447}
   ShellCasingEjectionForce: 2
   ShellPoolSize: 1

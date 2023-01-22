@@ -81,7 +81,7 @@ public class WeaponController : MonoBehaviour
     [Tooltip("Has physical clip on the weapon and ammo shells are ejected when firing")]
     public bool HasPhysicalBullets = false;
 
-    [Tooltip("Number of bullets in a clip")]
+    [Tooltip("Maximum amount of ammo carried by the player")]
     public int MaxCarriableAmmo = 30;
 
     [Tooltip("Bullet Shell Casing")]
@@ -101,7 +101,7 @@ public class WeaponController : MonoBehaviour
     [Tooltip("Amount of ammo reloaded per second")]
     public float AmmoReloadRate = 1f;
 
-    [Tooltip("Maximum amount of ammo carried by the player")]
+    [Tooltip("Number of bullets in gun")]
     public int MaxWeaponAmmo = 8;
 
     //Charge params
@@ -176,9 +176,10 @@ public class WeaponController : MonoBehaviour
         //TODO: Add audio for the guns
     }
 
-    //change it so it doesnt go higher than MaxWeaponAmmo
+    //change it so it doesnt go higher than MaxCarriableAmmo
 
-    public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxWeaponAmmo);
+    public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxCarriableAmmo);
+
     void ShootShell()
     {
         Rigidbody nextShell = m_PhysicalAmmoPool.Dequeue();
@@ -282,7 +283,7 @@ public class WeaponController : MonoBehaviour
     {
         m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo - amount, 0f, MaxWeaponAmmo);
         m_CarriedPhysicalBullets -= Mathf.RoundToInt(amount);
-        m_CarriedPhysicalBullets = Mathf.Clamp(m_CarriedPhysicalBullets, 0, MaxWeaponAmmo);
+        m_CarriedPhysicalBullets = Mathf.Clamp(m_CarriedPhysicalBullets, 0, MaxCarriableAmmo);
         m_LastTimeShot = Time.time;
     }
 
@@ -293,7 +294,7 @@ public class WeaponController : MonoBehaviour
         {
             case WeaponShootType.Manual:
                 if (inputDown)
-                {
+                {                   
                     return TryShoot();
                 }
 
@@ -332,7 +333,6 @@ public class WeaponController : MonoBehaviour
         {
             HandleShoot();
             m_CurrentAmmo -= 1f;
-
             return true;
         }
 
@@ -392,7 +392,7 @@ public class WeaponController : MonoBehaviour
         if (HasPhysicalBullets)
         {
             ShootShell();
-            //m_CarriedPhysicalBullets--; GARBAGE
+            //m_CurrentAmmo--; 
         }
 
         m_LastTimeShot = Time.time;
