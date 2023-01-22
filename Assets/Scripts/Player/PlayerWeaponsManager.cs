@@ -34,6 +34,9 @@ public class PlayerWeaponsManager : MonoBehaviour
     public Transform DownWeaponPosition;
 
     [Header("Weapon Bob")]
+    [Tooltip("The amount of bob based on maximum player movement")]
+    public float BobAmountPerPlayerMovement = 1f;
+
     [Tooltip("Frequency at which the weapon will move around in the screen when the player is in movement")]
     public float BobFrequency = 10f;
 
@@ -75,6 +78,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     public bool IsAiming { get; private set; }
     public bool IsPointingAtEnemy { get; private set; }
     public int ActiveWeaponIndex { get; private set; }
+    private float SprintRatio;
 
     public UnityAction<WeaponController> OnSwitchedToWeapon;
     public UnityAction<WeaponController, int> OnAddedWeapon;
@@ -102,6 +106,8 @@ public class PlayerWeaponsManager : MonoBehaviour
         m_PlayerCharacterController = GetComponent<PlayerControllerScr>();
 
         OnSwitchedToWeapon += OnWeaponSwitched;
+
+        SprintRatio = m_PlayerCharacterController.playerSettings.RunningForwardSpeed / m_PlayerCharacterController.playerSettings.WalkingForwardSpeed;
 
         // Add starting weapons
         foreach (var weapon in StartingWeapons)
@@ -303,8 +309,8 @@ public class PlayerWeaponsManager : MonoBehaviour
             {
                 characterMovementFactor =
                     Mathf.Clamp01(playerCharacterVelocity.magnitude /
-                                  (0.3f *
-                                   2.6f));//IT SHOULD BE NUBMERS BUTTTTTTTTTTT WE KNOW IT WORKS AT LEAST
+                                  (BobAmountPerPlayerMovement *
+                                   SprintRatio));//IT SHOULD BE NUBMERS BUTTTTTTTTTTT WE KNOW IT WORKS AT LEAST
             }
 
             m_WeaponBobFactor =
