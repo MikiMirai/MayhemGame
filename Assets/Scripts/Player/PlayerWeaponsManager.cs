@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -191,7 +190,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     // Update various animated features in LateUpdate because it needs to override the animated arm position
     void LateUpdate()
     {
-        //UpdateWeaponAiming();
+        UpdateWeaponAiming();
         UpdateWeaponBob();
         UpdateWeaponRecoil();
         UpdateWeaponSwitching();
@@ -271,35 +270,45 @@ public class PlayerWeaponsManager : MonoBehaviour
         return null;
     }
 
+    public void SetFov(float fov)
+    {
+        m_PlayerCharacterController.FirstPersonCamera.fieldOfView = fov;
+        m_PlayerCharacterController.ThirdPersonCamera.m_Lens.FieldOfView = fov * WeaponFovMultiplier;
+    }
+
     // Updates weapon position and camera FoV for the aiming transition
-    //void UpdateWeaponAiming()
-    //{
-    //    if (m_WeaponSwitchState == WeaponSwitchState.Up)
-    //    {
-    //        WeaponController activeWeapon = GetActiveWeapon();
-    //        if (IsAiming && activeWeapon)
-    //        {
-    //            m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
-    //                AimingWeaponPosition.localPosition + activeWeapon.AimOffset,
-    //                AimingAnimationSpeed * Time.deltaTime);
-    //            SetFov(Mathf.Lerp(m_PlayerCharacterController.PlayerCamera.fieldOfView,
-    //                activeWeapon.AimZoomRatio * DefaultFov, AimingAnimationSpeed * Time.deltaTime));
-    //        }
-    //        else
-    //        {
-    //            m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
-    //                DefaultWeaponPosition.localPosition, AimingAnimationSpeed * Time.deltaTime);
-    //            SetFov(Mathf.Lerp(m_PlayerCharacterController.PlayerCamera.fieldOfView, DefaultFov,
-    //                AimingAnimationSpeed * Time.deltaTime));
-    //        }
-    //    }
-    //}
+    void UpdateWeaponAiming()
+    {
+        if (m_WeaponSwitchState == WeaponSwitchState.Up)
+        {
+            // Get active weapon and check if player is aiming
+            WeaponController activeWeapon = GetActiveWeapon();
+            if (IsAiming && activeWeapon)
+            {
+                // Set local postion of the weapon to the Aim weapon position
+                m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
+                    AimingWeaponPosition.localPosition + activeWeapon.AimOffset,
+                    AimingAnimationSpeed * Time.deltaTime);
+                // Set the FOV of the camera/s
+                SetFov(Mathf.Lerp(m_PlayerCharacterController.FirstPersonCamera.fieldOfView,
+                    activeWeapon.AimZoomRatio * DefaultFov, AimingAnimationSpeed * Time.deltaTime));
+            }
+            else
+            {
+                m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
+                    DefaultWeaponPosition.localPosition, AimingAnimationSpeed * Time.deltaTime);
+                SetFov(Mathf.Lerp(m_PlayerCharacterController.FirstPersonCamera.fieldOfView, DefaultFov,
+                    AimingAnimationSpeed * Time.deltaTime));
+            }
+        }
+    }
 
     // Updates the weapon bob animation based on character speed
     void UpdateWeaponBob()
     {
         if (Time.deltaTime > 0f)
         {
+            // Get the current player velocity
             Vector3 playerCharacterVelocity =
                 (m_PlayerCharacterController.transform.position - m_LastCharacterPosition) / Time.deltaTime;
 
@@ -327,6 +336,7 @@ public class PlayerWeaponsManager : MonoBehaviour
             m_WeaponBobLocalPosition.x = hBobValue;
             m_WeaponBobLocalPosition.y = Mathf.Abs(vBobValue);
 
+            // Set the last player location
             m_LastCharacterPosition = m_PlayerCharacterController.transform.position;
         }
     }
@@ -474,7 +484,7 @@ public class PlayerWeaponsManager : MonoBehaviour
         // Look through our slots for that weapon
         for (int i = 0; i < m_WeaponSlots.Length; i++)
         {
-            // when weapon found, remove it
+            // When weapon found, remove it
             if (m_WeaponSlots[i] == weaponInstance)
             {
                 m_WeaponSlots[i] = null;
@@ -506,14 +516,14 @@ public class PlayerWeaponsManager : MonoBehaviour
 
     public WeaponController GetWeaponAtSlotIndex(int index)
     {
-        // find the active weapon in our weapon slots based on our active weapon index
+        // Find the active weapon in our weapon slots based on our active weapon index
         if (index >= 0 &&
             index < m_WeaponSlots.Length)
         {
             return m_WeaponSlots[index];
         }
 
-        // if we didn't find a valid active weapon in our weapon slots, return null
+        // Return null if no valid active weapon find in index
         return null;
     }
 

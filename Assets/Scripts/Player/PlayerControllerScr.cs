@@ -1,4 +1,4 @@
-using System;
+using Cinemachine;
 using UnityEngine;
 using static PlayerModels;
 
@@ -23,7 +23,11 @@ public class PlayerControllerScr : MonoBehaviour
     [Tooltip("Empty game object placed at feet")]
     public Transform feetTransform;
     [Tooltip("Third person camera holder")]
-    public GameObject ThirdPersonCamera;
+    public GameObject ThirdPersonCameraHolder;
+    [Tooltip("Third person camera")]
+    public CinemachineVirtualCamera ThirdPersonCamera;
+    [Tooltip("First person camera")]
+    public Camera FirstPersonCamera;
     [Tooltip("Choose the player layer to be checked for the stances")]
     public LayerMask playerMask;
 
@@ -130,7 +134,7 @@ public class PlayerControllerScr : MonoBehaviour
     {
         #region Horizontal Rotation
 
-        if (!ThirdPersonCamera.activeSelf)
+        if (!ThirdPersonCameraHolder.activeSelf)
         {
             //Camera rotation left-right
             newCharacterRotation.y += playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? -input_View.x : input_View.x) * Time.deltaTime;

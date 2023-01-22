@@ -120,8 +120,12 @@ public class WeaponController : MonoBehaviour
 
     //Audio & Visual effects
     [Header("Audio & Visual")]
+    [Tooltip("Translation to apply to weapon arm when aiming")]
+    public Vector3 AimOffset;
+
     [Tooltip("Optional weapon animator for shooting animations")]
     public Animator WeaponAnimator;
+
     const string k_AnimAttackParameter = "Attack";
 
     [Tooltip("sound played when shooting")]

@@ -305,7 +305,7 @@ MonoBehaviour:
   BulletSpreadAngle: 0
   BulletsPerShot: 1
   RecoilForce: 1
-  AimZoomRatio: 1
+  AimZoomRatio: 0.6
   ProjectilePrefab: {fileID: 4911322224840512839, guid: 26cc5d9566b94e14dbde8e8a3d24402d, type: 3}
   AutomaticReload: 0
   HasPhysicalBullets: 1
@@ -320,6 +320,7 @@ MonoBehaviour:
   MaxChargeDuration: 2
   AmmoUsedOnStartCharge: 1
   AmmoUsageRateWhileCharging: 1
+  AimOffset: {x: 0, y: 0, z: 0}
   WeaponAnimator: {fileID: 0}
   ShootSfx: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
   ReloadSfx: {fileID: 8300000, guid: 3c5c1d4d7b9307c458890a4beb12e4ae, type: 3}
