@@ -392,7 +392,6 @@ public class WeaponController : MonoBehaviour
         if (HasPhysicalBullets)
         {
             ShootShell();
-            //m_CurrentAmmo--; 
         }
 
         m_LastTimeShot = Time.time;

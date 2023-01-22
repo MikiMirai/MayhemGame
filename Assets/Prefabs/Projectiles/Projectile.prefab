@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8527830203666571838}
   - component: {fileID: 4911322224840512839}
+  - component: {fileID: 1025853619042622511}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -78,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 10
   Radius: 0.01
+  decalPainter: {fileID: 1025853619042622511}
   MaxLifeTime: 5
   Root: {fileID: 8527830203666571838}
   Tip: {fileID: 1240943824306325921}
@@ -89,6 +91,33 @@ MonoBehaviour:
   TrajectoryCorrectionDistance: -1
   InheritWeaponVelocity: 0
   RadiusColor: {r: 0, g: 0.6509434, b: 0.6509434, a: 0.2}
+--- !u!114 &1025853619042622511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063295231674806392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1716e7827cde674468a3eaa5cf2a8e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decalData:
+  - sprite: {fileID: 21300000, guid: cc316467606abc84a84c7414103d6c33, type: 3}
+    size: {x: 0.25, y: 0.25, z: 0.25}
+  decalPorjectorPrefab: {fileID: 4124269516126151357, guid: 6b2bd201d90a2d84c92da93852b5f479, type: 3}
+  selectedDecalIndex: 0
+  decalImage: {fileID: 0}
+  decalSwitchAction:
+    m_Name: Decal Switch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fc2c1a77-476b-4c41-a138-9c3ca9eb5d0a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &2238786720892079542
 GameObject:
   m_ObjectHideFlags: 0

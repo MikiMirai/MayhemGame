@@ -62,7 +62,7 @@ public class PlayerControllerScr : MonoBehaviour
     private Vector3 stanceCapsuleCenterVelocity;
     private float stanceCapsuleHeightVelocity;
 
-    private bool isMidAir;
+    public bool isMidAir;
     public float rotationLerp = 0.5f;
     public Vector3 nextPosition;
     public Quaternion nextRotation;
