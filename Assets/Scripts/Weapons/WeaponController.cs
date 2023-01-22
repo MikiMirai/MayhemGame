@@ -124,6 +124,15 @@ public class WeaponController : MonoBehaviour
     public Animator WeaponAnimator;
     const string k_AnimAttackParameter = "Attack";
 
+    [Tooltip("sound played when shooting")]
+    public AudioClip ShootSfx;
+
+    [Tooltip("sound played when reloading")]
+    public AudioClip ReloadSfx;
+
+    [Tooltip("Sound played when changing to this weapon")]
+    public AudioClip ChangeWeaponSfx;
+
     public UnityAction OnShoot;
     public event Action OnShootProcessed;
 
@@ -148,6 +157,8 @@ public class WeaponController : MonoBehaviour
     //Carried ammo
     private Queue<Rigidbody> m_PhysicalAmmoPool;
 
+    private AudioSource m_weaponAudioSource;
+
     public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
     public int GetCarriedPhysicalBullets() => m_CarriedPhysicalBullets;
     public float GetAmmoNeededToShoot() =>
@@ -160,6 +171,7 @@ public class WeaponController : MonoBehaviour
         m_CurrentAmmo = MaxWeaponAmmo;
         m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
         m_LastMuzzlePosition = WeaponMuzzle.position;
+        m_weaponAudioSource = GetComponent<AudioSource>();
 
         if (HasPhysicalBullets)
         {
@@ -206,7 +218,11 @@ public class WeaponController : MonoBehaviour
         {
             m_CarriedPhysicalBullets -= MaxWeaponAmmo;
             m_CurrentAmmo = MaxWeaponAmmo;
-        }     
+        }
+        if (ReloadSfx)
+        {
+            m_weaponAudioSource.PlayOneShot(ReloadSfx);
+        }
         IsReloading = false;
     }
 
@@ -373,7 +389,7 @@ public class WeaponController : MonoBehaviour
     }
 
     void HandleShoot()
-    {
+    {      
         int bulletsPerShotFinal = ShootType == WeaponShootType.Charge
                 ? Mathf.CeilToInt(CurrentCharge * BulletsPerShot)
                 : BulletsPerShot;
@@ -397,6 +413,10 @@ public class WeaponController : MonoBehaviour
         m_LastTimeShot = Time.time;
 
         //TODO: Play shooting SFX
+        if (ShootSfx)
+        {
+            m_weaponAudioSource.PlayOneShot(ShootSfx);
+        }
 
         //Trigger attack animation if there is an animator
         if (WeaponAnimator)
