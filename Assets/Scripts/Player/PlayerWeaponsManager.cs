@@ -305,7 +305,7 @@ public class PlayerWeaponsManager : MonoBehaviour
 
             // calculate a smoothed weapon bob amount based on how close to our max grounded movement velocity we are
             float characterMovementFactor = 0f;
-            if (!m_PlayerCharacterController.isMidAir)
+            if (m_PlayerCharacterController.IsGrounded)
             {
                 characterMovementFactor =
                     Mathf.Clamp01(playerCharacterVelocity.magnitude /

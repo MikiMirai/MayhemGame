@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static PlayerModels;
 
@@ -62,7 +63,8 @@ public class PlayerControllerScr : MonoBehaviour
     private Vector3 stanceCapsuleCenterVelocity;
     private float stanceCapsuleHeightVelocity;
 
-    public bool isMidAir;
+    private bool isMidAir;
+    public bool IsGrounded;
     public float rotationLerp = 0.5f;
     public Vector3 nextPosition;
     public Quaternion nextRotation;
@@ -103,11 +105,25 @@ public class PlayerControllerScr : MonoBehaviour
         CalculateJump();
         CalculateStance();
 
+        CheckGrounded();
+
         //Set animator values
         animator.SetBool("isGrounded", characterController.isGrounded);
         animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
         animator.SetBool("WalkingLeft", isWalkingLeft);
         animator.SetBool("WalkingRight", isWalkingRight);
+    }
+
+    private void CheckGrounded()
+    {
+        if (characterController.isGrounded)
+        {
+            IsGrounded = true;
+        }
+        else
+        {
+            IsGrounded = false;
+        }
     }
 
     private void CalculateView()
@@ -229,20 +245,11 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void CalculateJump()
     {
-        if (characterController.isGrounded)
-        {
-            isMidAir = false;
-        }
-        else
-        {
-            isMidAir = true;
-        }
         jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.zero, ref jumpingForceVelocity, playerSettings.JumpingFalloff);
     }
 
     private void CalculateStance()
     {
-
         var currentStance = playerStandStance;
 
         if (playerStance == PlayerStance.Crouch)

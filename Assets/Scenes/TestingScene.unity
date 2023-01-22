@@ -34685,7 +34685,7 @@ MonoBehaviour:
   AimingWeaponPosition: {fileID: 2396335991187443508}
   DownWeaponPosition: {fileID: 1981573290}
   BobAmountPerPlayerMovement: 0.2
-  BobFrequency: 10
+  BobFrequency: 6
   BobSharpness: 10
   DefaultBobAmount: 0.05
   AimingBobAmount: 0.02
