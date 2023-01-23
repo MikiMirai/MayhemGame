@@ -15489,7 +15489,7 @@ GameObject:
   - component: {fileID: 1459769293}
   - component: {fileID: 1459769292}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Hit Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
