@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,9 @@ public class PlayerWeaponsManager : MonoBehaviour
     public List<WeaponController> StartingWeapons = new List<WeaponController>();
 
     [Header("References")]
+    [Tooltip("Ammo UI reference")]
+    public TextMeshProUGUI ammoText;
+
     [Tooltip("Secondary camera used to avoid seeing weapon go throw geometries")]
     public Camera WeaponCamera;
 
@@ -190,6 +194,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     // Update various animated features in LateUpdate because it needs to override the animated arm position
     void LateUpdate()
     {
+        UpdateAmmoUI();
         UpdateWeaponAiming();
         UpdateWeaponBob();
         UpdateWeaponRecoil();
@@ -198,6 +203,12 @@ public class PlayerWeaponsManager : MonoBehaviour
         // Set final weapon socket position based on all the combined animation influences
         WeaponParentSocket.localPosition =
             m_WeaponMainLocalPosition + m_WeaponBobLocalPosition + m_WeaponRecoilLocalPosition;
+    }
+
+    private void UpdateAmmoUI()
+    {
+        WeaponController activeWeapon = GetActiveWeapon();
+        ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {activeWeapon.m_CarriedPhysicalBullets}";
     }
 
     // Iterate on all weapon slots to find the next valid weapon to switch to

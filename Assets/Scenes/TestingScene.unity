@@ -34672,6 +34672,7 @@ MonoBehaviour:
   StartingWeapons:
   - {fileID: 1152627118239104395, guid: 7c6064214da51de4792c2d17973f315d, type: 3}
   - {fileID: 5050839044496076680, guid: 5621841bb3cd45b45a96ffe85085ec05, type: 3}
+  ammoText: {fileID: 1703342588}
   WeaponCamera: {fileID: 6332157742369867855}
   WeaponParentSocket: {fileID: 2396335991187443508}
   DefaultWeaponPosition: {fileID: 1981573290}

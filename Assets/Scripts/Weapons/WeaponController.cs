@@ -141,8 +141,8 @@ public class WeaponController : MonoBehaviour
     public event Action OnShootProcessed;
 
     bool m_WantsToShoot = false;
-    float m_CurrentAmmo;
-    int m_CarriedPhysicalBullets;
+    public float m_CurrentAmmo;
+    public int m_CarriedPhysicalBullets;
     float m_LastTimeShot = Mathf.NegativeInfinity;
     Vector3 m_LastMuzzlePosition;
 
