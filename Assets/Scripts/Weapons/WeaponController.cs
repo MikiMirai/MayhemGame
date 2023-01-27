@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -66,9 +65,6 @@ public class WeaponController : MonoBehaviour
     [Range(0f, 1f)]
     [Tooltip("Ratio of the default FOV that this weapon applies while aiming")]
     public float AimZoomRatio = 1f;
-
-    //[Tooltip("Ammo UI reference")]
-    //public TextMeshProUGUI ammoText;
 
     [Tooltip("The projectile prefab")] 
     public ProjectileBase ProjectilePrefab;
@@ -222,9 +218,8 @@ public class WeaponController : MonoBehaviour
         {
             m_CarriedPhysicalBullets -= MaxWeaponAmmo;
             m_CurrentAmmo = MaxWeaponAmmo;
+            Debug.Log($"Carried Bullets: {m_CarriedPhysicalBullets}");
         }
-
-        
 
         IsReloading = false;
     }
@@ -240,7 +235,8 @@ public class WeaponController : MonoBehaviour
                 m_WeaponAudioSource.PlayOneShot(ReloadSfx);
             }
 
-            Reload();
+            Invoke("Reload", 3f);
+            //Reload();
         }
     }
 
@@ -258,7 +254,7 @@ public class WeaponController : MonoBehaviour
 
     //void UpdateAmmo()
     //{
-    //    //TODO: Update UI ammo
+    //    //Ammo updates on weapon manager, use for something else
     //    ammoText.text = $"{m_CurrentAmmo} / {m_CarriedPhysicalBullets}";
     //}
 

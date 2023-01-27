@@ -130,7 +130,7 @@ public class PlayerWeaponsManager : MonoBehaviour
 
         if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
         {
-            if (!activeWeapon.AutomaticReload && m_InputHandler.GetReloadButtonDown() && activeWeapon.CurrentAmmoRatio < 1.0f)
+            if (!activeWeapon.AutomaticReload && m_InputHandler.GetReloadButtonDown() && !activeWeapon.IsReloading)
             {
                 IsAiming = false;
                 activeWeapon.StartReloadAnimation();
