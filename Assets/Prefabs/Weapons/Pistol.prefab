@@ -288,21 +288,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8296895215927414796c0f998a502222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponName: GUN
+  WeaponName: Pistol
   WeaponIcon: {fileID: 21300000, guid: 6b904123bb0130d419dd121a47e4a69d, type: 3}
   WeaponRoot: {fileID: 4022554183594820280}
   WeaponMuzzle: {fileID: 7618793916680857734}
   CrosshairDataDefault:
     CrosshairSprite: {fileID: 21300000, guid: 6b904123bb0130d419dd121a47e4a69d, type: 3}
     CrosshairSize: 1
-    CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+    CrosshairColor: {r: 0.83396226, g: 0.98568296, b: 1, a: 0}
   CrosshairDataTargetInSight:
     CrosshairSprite: {fileID: 21300000, guid: 7f46b91c0763c2f47a0bfc1fc1135166, type: 3}
     CrosshairSize: 1
-    CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+    CrosshairColor: {r: 1, g: 0.66415095, b: 0.66415095, a: 0}
   ShootType: 0
   DelayBetweenShots: 0.5
-  BulletSpreadAngle: 0
+  BulletSpreadAngle: 0.1
   BulletsPerShot: 1
   RecoilForce: 1
   AimZoomRatio: 0.6
@@ -312,7 +312,7 @@ MonoBehaviour:
   MaxCarriableAmmo: 30
   ShellCasing: {fileID: 6133192479681192120, guid: d2d4612795923c94a9934952eba46b9f, type: 3}
   EjectionPort: {fileID: 6422515387149886447}
-  ShellCasingEjectionForce: 2
+  ShellCasingEjectionForce: 1
   ShellPoolSize: 1
   AmmoReloadRate: 1
   MaxWeaponAmmo: 8
@@ -325,6 +325,8 @@ MonoBehaviour:
   ShootSfx: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
   ReloadSfx: {fileID: 8300000, guid: 3c5c1d4d7b9307c458890a4beb12e4ae, type: 3}
   ChangeWeaponSfx: {fileID: 0}
+  m_CurrentAmmo: 0
+  m_CarriedPhysicalBullets: 0
 --- !u!82 &-2479669638559474979
 AudioSource:
   m_ObjectHideFlags: 0
