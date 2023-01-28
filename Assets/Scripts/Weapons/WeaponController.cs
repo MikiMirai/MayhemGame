@@ -226,7 +226,7 @@ public class WeaponController : MonoBehaviour
 
     public void StartReloadAnimation()
     {
-        if (m_CurrentAmmo < m_CarriedPhysicalBullets)
+        if (m_CurrentAmmo < MaxWeaponAmmo && m_CarriedPhysicalBullets > 0)
         {
             //GetComponent<Animator>().SetTrigger("Reload");
             IsReloading = true;
@@ -235,8 +235,8 @@ public class WeaponController : MonoBehaviour
                 m_WeaponAudioSource.PlayOneShot(ReloadSfx);
             }
 
-            Invoke("Reload", 3f);
-            //Reload();
+            //Invoke("Reload", 3f);
+            Reload();
         }
     }
 
