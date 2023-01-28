@@ -10,6 +10,12 @@ public enum WeaponShootType
     Charge,
 }
 
+public enum AmmoType
+{
+    Pistol,
+    Rifle,
+}
+
 [System.Serializable]
 public struct CrosshairData
 {
@@ -48,6 +54,9 @@ public class WeaponController : MonoBehaviour
     [Header("Shoot Parameters")]
     [Tooltip("The type of weapon will affect how it shoots")]
     public WeaponShootType ShootType;
+
+    [Tooltip("The type of ammo the weapon uses")]
+    public AmmoType AmmoType;
 
     [Tooltip("Minimum time between 2 shots")]
     public float DelayBetweenShots = 0.5f;
