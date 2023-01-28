@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour
@@ -9,6 +10,13 @@ public class Damageable : MonoBehaviour
     public float SelfDamageMultiplier = 0.2f;
 
     public Health Health { get; private set; }
+
+    [Header("Debug")]
+    [Tooltip("If ON then the object won't 'die' and will display every given damage on UI")]
+    public bool DamageTesting = false;
+
+    [Tooltip("UI text to show damage dealt")]
+    public TextMeshProUGUI damageText;
 
     void Awake()
     {
@@ -38,8 +46,15 @@ public class Damageable : MonoBehaviour
                 totalDamage *= SelfDamageMultiplier;
             }
 
-            // Apply the taken damage
-            Health.TakeDamage(totalDamage, damageSource);
+            if (DamageTesting)
+            {
+                damageText.text = $"TakenDMG: {totalDamage}";
+            }
+            else
+            {
+                // Apply the taken damage
+                Health.TakeDamage(totalDamage, damageSource);
+            }
         }
     }
 }
