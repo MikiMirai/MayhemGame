@@ -123,7 +123,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""id"": ""568000f1-37e5-4cca-94e3-171c08d35b23"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 }
             ],

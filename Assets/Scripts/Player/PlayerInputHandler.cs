@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -45,12 +47,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool GetPauseInputDown()
     {
-        if (CanProcessInput())
-        {
-            return playerControls.Character.Pause.ReadValue<float>() > 0.1f;
-        }
-
-        return false;
+        return Input.GetButtonUp("Pause");
     }
 
     public bool GetFireInputDown()
