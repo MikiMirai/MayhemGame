@@ -132,6 +132,11 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void CalculateView()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+
         #region Horizontal Rotation
 
         if (!ThirdPersonCameraHolder.activeSelf)
