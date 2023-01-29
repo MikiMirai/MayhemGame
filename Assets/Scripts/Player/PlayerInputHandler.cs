@@ -29,11 +29,6 @@ public class PlayerInputHandler : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
-    {
-
-    }
-
     void LateUpdate()
     {
         m_FireInputWasHeld = GetFireInputHeld();
@@ -41,7 +36,21 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool CanProcessInput()
     {
+        if (PauseMenu.isPaused)
+        {
+            return false;
+        }
         return Cursor.lockState == CursorLockMode.Locked;
+    }
+
+    public bool GetPauseInputDown()
+    {
+        if (CanProcessInput())
+        {
+            return playerControls.Character.Pause.ReadValue<float>() > 0.1f;
+        }
+
+        return false;
     }
 
     public bool GetFireInputDown()
