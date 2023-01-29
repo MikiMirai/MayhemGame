@@ -301,6 +301,7 @@ MonoBehaviour:
     CrosshairSize: 1
     CrosshairColor: {r: 1, g: 0.66415095, b: 0.66415095, a: 0}
   ShootType: 0
+  AmmoType: 0
   DelayBetweenShots: 0.5
   BulletSpreadAngle: 0.1
   BulletsPerShot: 1
@@ -336,7 +337,7 @@ AudioSource:
   m_GameObject: {fileID: 4022554183594820280}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5644458885735919921, guid: bfe1b9c15f429c942a23334ad41ed47c, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.6
