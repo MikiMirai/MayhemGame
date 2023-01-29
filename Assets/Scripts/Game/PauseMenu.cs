@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     [Header("References")]
     public PlayerInputHandler m_InputHandler;
     public GameObject pauseMenu;
+    public GameObject optionsMenu;
 
     [Header("Public")]
     public static bool isPaused;
@@ -45,11 +46,24 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void ShowOptions()
+    {
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+    }
+
+    public void ShowPauseMenu()
+    {
+        optionsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void GoToMainMenu()
