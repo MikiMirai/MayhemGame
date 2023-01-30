@@ -132,6 +132,11 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void CalculateView()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+
         #region Horizontal Rotation
 
         if (!ThirdPersonCameraHolder.activeSelf)
@@ -201,7 +206,12 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void CalculateMovement()
     {
-        if(input_Movement.y <= 0.2f)
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+
+        if (input_Movement.y <= 0.2f)
         {
             isSprinting = false;
         }

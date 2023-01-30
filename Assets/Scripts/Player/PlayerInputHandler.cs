@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -29,11 +31,6 @@ public class PlayerInputHandler : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
-    {
-
-    }
-
     void LateUpdate()
     {
         m_FireInputWasHeld = GetFireInputHeld();
@@ -41,7 +38,16 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool CanProcessInput()
     {
+        if (PauseMenu.isPaused)
+        {
+            return false;
+        }
         return Cursor.lockState == CursorLockMode.Locked;
+    }
+
+    public bool GetPauseInputDown()
+    {
+        return Input.GetButtonUp("Pause");
     }
 
     public bool GetFireInputDown()
