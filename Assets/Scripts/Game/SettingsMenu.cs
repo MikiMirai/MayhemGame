@@ -6,7 +6,6 @@ using UnityEngine.Audio;
 public class SettingsMenu : MonoBehaviour
 {
     [Header("References")]
-    public GameObject pauseMenu;
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown;
 
