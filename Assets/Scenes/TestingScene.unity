@@ -2104,7 +2104,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &613978770
 GameObject:
@@ -13887,7 +13887,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 6332157741608911990}
   m_Lens:
-    FieldOfView: 59.99981
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -27458,7 +27458,7 @@ PrefabInstance:
       objectReference: {fileID: 6332157740826504944}
     - target: {fileID: 1499116214961825220, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: field of view
-      value: 59.99981
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1499116215146873813, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: FirstCam
@@ -35130,7 +35130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564992667418129400, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6564992667418129400, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
       propertyPath: m_LocalPosition.x
