@@ -32,6 +32,16 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
     }
 
+    public void OnNewGameClicked()
+    {
+        DataPersistenceManager.instance.NewGame();
+    }
+
+    public void OnLoadGameClicked()
+    {
+        DataPersistenceManager.instance.LoadGame();
+    }
+
     public void QuitGame()
     {
         Application.Quit();
