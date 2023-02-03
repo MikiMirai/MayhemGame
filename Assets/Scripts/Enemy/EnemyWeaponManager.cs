@@ -114,7 +114,7 @@ public class EnemyWeaponManager : MonoBehaviour
 
         if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
         {
-            if (!activeWeapon.AutomaticReload && !activeWeapon.IsReloading && CheckForReload())
+            if (!activeWeapon.AutomaticReload && !activeWeapon.IsReloading && CheckForReload(activeWeapon))
             {
                 IsAiming = false;
                 activeWeapon.StartReloadAnimation();
@@ -192,9 +192,12 @@ public class EnemyWeaponManager : MonoBehaviour
             m_WeaponMainLocalPosition + m_WeaponBobLocalPosition + m_WeaponRecoilLocalPosition;
     }
 
-    private bool CheckForReload()
+    private bool CheckForReload(WeaponController weapon)
     {
-        // TODO: check if enemy should reload
+        if (weapon.m_CurrentAmmo <= 0)
+        {
+            return true;
+        }
         return false;
     }
 
