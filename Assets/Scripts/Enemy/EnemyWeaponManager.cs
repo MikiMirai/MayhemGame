@@ -122,7 +122,7 @@ public class EnemyWeaponManager : MonoBehaviour
 
         if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
         {
-            if (!activeWeapon.AutomaticReload && !activeWeapon.IsReloading && CheckForReload(activeWeapon))
+            if (!activeWeapon.AutomaticReload && !activeWeapon.IsReloading && CheckForReload(activeWeapon) && CheckForEnemyAmmo(activeWeapon))
             {
                 IsAiming = false;
                 activeWeapon.StartReloadAnimation(true);
@@ -212,7 +212,18 @@ public class EnemyWeaponManager : MonoBehaviour
     private void UpdateAmmoUI()
     {
         WeaponController activeWeapon = GetActiveWeapon();
-        ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {activeWeapon.m_CarriedPhysicalBullets}";
+        if (activeWeapon.AmmoType == AmmoType.Pistol)
+        {
+            ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {PistolAmmo}";
+        }
+        else if (activeWeapon.AmmoType == AmmoType.Rifle)
+        {
+            ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {RifleAmmo}";
+        }
+        else if (activeWeapon.AmmoType == AmmoType.Shotgun)
+        {
+            ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {ShotgunAmmo}";
+        }
     }
 
     // Iterate on all weapon slots to find the next valid weapon to switch to
@@ -559,6 +570,24 @@ public class EnemyWeaponManager : MonoBehaviour
         if (newWeapon != null)
         {
             newWeapon.ShowWeapon(true);
+        }
+    }
+
+    private bool CheckForEnemyAmmo(WeaponController activeWeapon)
+    {
+        switch (activeWeapon.AmmoType)
+        {
+            case AmmoType.Pistol:
+                if (PistolAmmo > 0) return true;
+                return false;
+            case AmmoType.Rifle:
+                if (RifleAmmo > 0) return true;
+                return false;
+            case AmmoType.Shotgun:
+                if (ShotgunAmmo > 0) return true;
+                return false;
+            default:
+                return false;
         }
     }
 }
