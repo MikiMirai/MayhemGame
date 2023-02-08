@@ -66,12 +66,13 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
     }
 
-    public void GoToMainMenu()
-    {
-        Time.timeScale = 1f;
-        isPaused = false;
-        SceneManager.LoadScene("MainMenu");
-    }
+    // Deprecated
+    //public void GoToMainMenu()
+    //{
+    //    Time.timeScale = 1f;
+    //    isPaused = false;
+    //    SceneManager.LoadScene("MainMenu");
+    //}
 
     public void QuitGame()
     {
