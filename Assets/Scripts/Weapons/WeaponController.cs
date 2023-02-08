@@ -154,6 +154,9 @@ public class WeaponController : MonoBehaviour
     Vector3 m_LastMuzzlePosition;
 
     public GameObject Owner { get; set; }
+
+    [field: SerializeField]
+    public bool isOwnerPlayer { get; set; }
     public PlayerWeaponsManager m_PlayerWeaponManager { get; set; }
     public EnemyWeaponManager m_EnemyWeaponManager { get; set; }
     public GameObject SourcePrefab { get; set; }
@@ -202,6 +205,18 @@ public class WeaponController : MonoBehaviour
         //TODO: Add audio for the guns
     }
 
+    private void Start()
+    {
+        if (Owner.GetComponent<PlayerWeaponsManager>() != null)
+        {
+            isOwnerPlayer = true;
+        }
+        else if (Owner.GetComponent<EnemyWeaponManager>() != null)
+        {
+            isOwnerPlayer = false;
+        }
+    }
+
     //change it so it doesnt go higher than MaxCarriableAmmo
 
     public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxCarriableAmmo);
@@ -222,7 +237,7 @@ public class WeaponController : MonoBehaviour
 
     void Reload()
     {
-        if (Owner.GetComponent<PlayerWeaponsManager>() != null)
+        if (isOwnerPlayer)
         {
             switch (AmmoType)
             {
@@ -272,7 +287,7 @@ public class WeaponController : MonoBehaviour
                     break;
             }
         }
-        else if (Owner.GetComponent<EnemyWeaponManager>() != null)
+        else if (isOwnerPlayer)
         {
             var m_CurrentManager = Owner.GetComponent<EnemyWeaponManager>();
             switch (AmmoType)
