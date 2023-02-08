@@ -35119,7 +35119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564992667418129401, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
       propertyPath: <PistolAmmo>k__BackingField
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6564992667418129401, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
       propertyPath: <ShotgunAmmo>k__BackingField

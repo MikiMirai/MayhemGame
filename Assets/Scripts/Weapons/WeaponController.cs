@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -185,7 +186,6 @@ public class WeaponController : MonoBehaviour
         m_LastMuzzlePosition = WeaponMuzzle.position;
         m_WeaponAudioSource = GetComponent<AudioSource>();
         m_PlayerWeaponManager = FindObjectOfType<PlayerWeaponsManager>();
-        m_EnemyWeaponManager = FindObjectOfType<EnemyWeaponManager>();
 
         if (HasPhysicalBullets)
         {
@@ -222,52 +222,106 @@ public class WeaponController : MonoBehaviour
 
     void Reload()
     {
-        switch (AmmoType)
+        if (Owner.GetComponent<PlayerWeaponsManager>() != null)
         {
-            case AmmoType.Pistol:
-                if (m_PlayerWeaponManager.PistolAmmo < MaxWeaponAmmo)
-                {
-                    m_CurrentAmmo = Mathf.Min(m_PlayerWeaponManager.PistolAmmo, MaxWeaponAmmo);
+            switch (AmmoType)
+            {
+                case AmmoType.Pistol:
+                    if (m_PlayerWeaponManager.PistolAmmo < MaxWeaponAmmo)
+                    {
+                        m_CurrentAmmo = Mathf.Min(m_PlayerWeaponManager.PistolAmmo, MaxWeaponAmmo);
 
-                    m_PlayerWeaponManager.PistolAmmo = 0;
-                }
-                else
-                {
-                    m_PlayerWeaponManager.PistolAmmo -= MaxWeaponAmmo;
-                    m_CurrentAmmo = MaxWeaponAmmo;
-                    Debug.Log($"Carried Pistol Bullets: {m_PlayerWeaponManager.PistolAmmo}");
-                };
-                break;
-            case AmmoType.Rifle:
-                if (m_PlayerWeaponManager.RifleAmmo < MaxWeaponAmmo)
-                {
-                    m_CurrentAmmo = Mathf.Min(m_PlayerWeaponManager.RifleAmmo, MaxWeaponAmmo);
+                        m_PlayerWeaponManager.PistolAmmo = 0;
+                    }
+                    else
+                    {
+                        m_PlayerWeaponManager.PistolAmmo -= MaxWeaponAmmo;
+                        m_CurrentAmmo = MaxWeaponAmmo;
+                        Debug.Log($"Carried Pistol Bullets: {m_PlayerWeaponManager.PistolAmmo}");
+                    };
+                    break;
+                case AmmoType.Rifle:
+                    if (m_PlayerWeaponManager.RifleAmmo < MaxWeaponAmmo)
+                    {
+                        m_CurrentAmmo = Mathf.Min(m_PlayerWeaponManager.RifleAmmo, MaxWeaponAmmo);
 
-                    m_PlayerWeaponManager.RifleAmmo = 0;
-                }
-                else
-                {
-                    m_PlayerWeaponManager.RifleAmmo -= MaxWeaponAmmo;
-                    m_CurrentAmmo = MaxWeaponAmmo;
-                    Debug.Log($"Carried Rifle Bullets: {m_PlayerWeaponManager.RifleAmmo}");
-                }
-                break;
-            case AmmoType.Shotgun:
-                if (m_PlayerWeaponManager.ShotgunAmmo < MaxWeaponAmmo)
-                {
-                    m_CurrentAmmo = Mathf.Min(m_PlayerWeaponManager.ShotgunAmmo, MaxWeaponAmmo);
+                        m_PlayerWeaponManager.RifleAmmo = 0;
+                    }
+                    else
+                    {
+                        m_PlayerWeaponManager.RifleAmmo -= MaxWeaponAmmo;
+                        m_CurrentAmmo = MaxWeaponAmmo;
+                        Debug.Log($"Carried Rifle Bullets: {m_PlayerWeaponManager.RifleAmmo}");
+                    }
+                    break;
+                case AmmoType.Shotgun:
+                    if (m_PlayerWeaponManager.ShotgunAmmo < MaxWeaponAmmo)
+                    {
+                        m_CurrentAmmo = Mathf.Min(m_PlayerWeaponManager.ShotgunAmmo, MaxWeaponAmmo);
 
-                    m_PlayerWeaponManager.ShotgunAmmo = 0;
-                }
-                else
-                {
-                    m_PlayerWeaponManager.ShotgunAmmo -= MaxWeaponAmmo;
-                    m_CurrentAmmo = MaxWeaponAmmo;
-                    Debug.Log($"Carried Shotgun Bullets: {m_PlayerWeaponManager.ShotgunAmmo}");
-                }
-                break;
-            default:
-                break;
+                        m_PlayerWeaponManager.ShotgunAmmo = 0;
+                    }
+                    else
+                    {
+                        m_PlayerWeaponManager.ShotgunAmmo -= MaxWeaponAmmo;
+                        m_CurrentAmmo = MaxWeaponAmmo;
+                        Debug.Log($"Carried Shotgun Bullets: {m_PlayerWeaponManager.ShotgunAmmo}");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (Owner.GetComponent<EnemyWeaponManager>() != null)
+        {
+            var m_CurrentManager = Owner.GetComponent<EnemyWeaponManager>();
+            switch (AmmoType)
+            {
+                case AmmoType.Pistol:
+                    if (m_CurrentManager.PistolAmmo < MaxWeaponAmmo)
+                    {
+                        m_CurrentAmmo = Mathf.Min(m_CurrentManager.PistolAmmo, MaxWeaponAmmo);
+
+                        m_CurrentManager.PistolAmmo = 0;
+                    }
+                    else
+                    {
+                        m_CurrentManager.PistolAmmo -= MaxWeaponAmmo;
+                        m_CurrentAmmo = MaxWeaponAmmo;
+                        Debug.Log($"Carried Pistol Bullets: {m_CurrentManager.PistolAmmo}");
+                    };
+                    break;
+                case AmmoType.Rifle:
+                    if (m_CurrentManager.RifleAmmo < MaxWeaponAmmo)
+                    {
+                        m_CurrentAmmo = Mathf.Min(m_CurrentManager.RifleAmmo, MaxWeaponAmmo);
+
+                        m_CurrentManager.RifleAmmo = 0;
+                    }
+                    else
+                    {
+                        m_CurrentManager.RifleAmmo -= MaxWeaponAmmo;
+                        m_CurrentAmmo = MaxWeaponAmmo;
+                        Debug.Log($"Carried Rifle Bullets: {m_CurrentManager.RifleAmmo}");
+                    }
+                    break;
+                case AmmoType.Shotgun:
+                    if (m_CurrentManager.ShotgunAmmo < MaxWeaponAmmo)
+                    {
+                        m_CurrentAmmo = Mathf.Min(m_CurrentManager.ShotgunAmmo, MaxWeaponAmmo);
+
+                        m_CurrentManager.ShotgunAmmo = 0;
+                    }
+                    else
+                    {
+                        m_CurrentManager.ShotgunAmmo -= MaxWeaponAmmo;
+                        m_CurrentAmmo = MaxWeaponAmmo;
+                        Debug.Log($"Carried Shotgun Bullets: {m_CurrentManager.ShotgunAmmo}");
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         //if (m_CarriedPhysicalBullets < MaxWeaponAmmo)
@@ -297,8 +351,8 @@ public class WeaponController : MonoBehaviour
                 m_WeaponAudioSource.PlayOneShot(ReloadSfx);
             }
 
-            //Invoke("Reload", 3f);
-            Reload();
+            Invoke("Reload", 3f);
+            //Reload();
         }
     }
 
