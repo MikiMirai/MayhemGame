@@ -27409,6 +27409,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4815663362168856700, guid: b012172f53354784eb2472d1f4e12799, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 4815663362488157805, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: FirstCam
       value: 
@@ -33253,6 +33257,9 @@ MonoBehaviour:
   FpsWeaponLayer:
     serializedVersion: 2
     m_Bits: 1024
+  <PistolAmmo>k__BackingField: 30
+  <RifleAmmo>k__BackingField: 120
+  <ShotgunAmmo>k__BackingField: 16
 --- !u!137 &6332157740830806048
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -35106,5 +35113,17 @@ PrefabInstance:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 541011028}
+    - target: {fileID: 6564992667418129401, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
+      propertyPath: <RifleAmmo>k__BackingField
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6564992667418129401, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
+      propertyPath: <PistolAmmo>k__BackingField
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6564992667418129401, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}
+      propertyPath: <ShotgunAmmo>k__BackingField
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 227af8a6ad7a9254294abdd35b5a3ba9, type: 3}

@@ -327,6 +327,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   fireInputDown: 0
+  <PistolAmmo>k__BackingField: 20
+  <RifleAmmo>k__BackingField: 60
+  <ShotgunAmmo>k__BackingField: 8
 --- !u!1 &6564992668092290658
 GameObject:
   m_ObjectHideFlags: 0

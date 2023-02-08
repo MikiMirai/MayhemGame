@@ -83,6 +83,14 @@ public class PlayerWeaponsManager : MonoBehaviour
     public int ActiveWeaponIndex { get; private set; }
     private float SprintRatio;
 
+    // Player Ammo Types
+    [field: SerializeField]
+    public int PistolAmmo { get; set; }
+    [field: SerializeField]
+    public int RifleAmmo { get; set; }
+    [field: SerializeField]
+    public int ShotgunAmmo { get; set; }
+
     public UnityAction<WeaponController> OnSwitchedToWeapon;
     public UnityAction<WeaponController, int> OnAddedWeapon;
     public UnityAction<WeaponController, int> OnRemovedWeapon;
@@ -133,7 +141,7 @@ public class PlayerWeaponsManager : MonoBehaviour
             if (!activeWeapon.AutomaticReload && m_InputHandler.GetReloadButtonDown() && !activeWeapon.IsReloading)
             {
                 IsAiming = false;
-                activeWeapon.StartReloadAnimation();
+                activeWeapon.StartReloadAnimation(CheckForPlayerAmmo(activeWeapon));
                 return;
             }
             // Handle aiming down sights
@@ -145,7 +153,7 @@ public class PlayerWeaponsManager : MonoBehaviour
                 m_InputHandler.GetFireInputHeld(),
                 m_InputHandler.GetFireInputReleased());
 
-            // Add and clam recoil
+            // Add and clamp recoil
             if (hasFired)
             {
                 m_AccumulatedRecoil += Vector3.back * activeWeapon.RecoilForce;
@@ -208,7 +216,18 @@ public class PlayerWeaponsManager : MonoBehaviour
     private void UpdateAmmoUI()
     {
         WeaponController activeWeapon = GetActiveWeapon();
-        ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {activeWeapon.m_CarriedPhysicalBullets}";
+        if (activeWeapon.AmmoType == AmmoType.Pistol)
+        {
+            ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {PistolAmmo}";
+        }
+        else if (activeWeapon.AmmoType == AmmoType.Rifle)
+        {
+            ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {RifleAmmo}";
+        }
+        else if (activeWeapon.AmmoType == AmmoType.Shotgun)
+        {
+            ammoText.text = $"{activeWeapon.m_CurrentAmmo} / {ShotgunAmmo}";
+        }
     }
 
     // Iterate on all weapon slots to find the next valid weapon to switch to
@@ -566,6 +585,24 @@ public class PlayerWeaponsManager : MonoBehaviour
         if (newWeapon != null)
         {
             newWeapon.ShowWeapon(true);
+        }
+    }
+
+    private bool CheckForPlayerAmmo(WeaponController activeWeapon)
+    {
+        switch (activeWeapon.AmmoType)
+        {
+            case AmmoType.Pistol:
+                if (PistolAmmo > 0) return true;
+                return false;
+            case AmmoType.Rifle:
+                if (RifleAmmo > 0) return true;
+                return false;
+            case AmmoType.Shotgun:
+                if (ShotgunAmmo > 0) return true;
+                return false;
+            default:
+                return false;
         }
     }
 }

@@ -74,6 +74,14 @@ public class EnemyWeaponManager : MonoBehaviour
 
     public bool fireInputDown = false;
 
+    // Enemy Ammo Types
+    [field: SerializeField]
+    public int PistolAmmo { get; set; }
+    [field: SerializeField]
+    public int RifleAmmo { get; set; }
+    [field: SerializeField]
+    public int ShotgunAmmo { get; set; }
+
     public UnityAction<WeaponController> OnSwitchedToWeapon;
     public UnityAction<WeaponController, int> OnAddedWeapon;
     public UnityAction<WeaponController, int> OnRemovedWeapon;
@@ -117,7 +125,7 @@ public class EnemyWeaponManager : MonoBehaviour
             if (!activeWeapon.AutomaticReload && !activeWeapon.IsReloading && CheckForReload(activeWeapon))
             {
                 IsAiming = false;
-                activeWeapon.StartReloadAnimation();
+                activeWeapon.StartReloadAnimation(true);
                 return;
             }
             // Handle aiming down sights
