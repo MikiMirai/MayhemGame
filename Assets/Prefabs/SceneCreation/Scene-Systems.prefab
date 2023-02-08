@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 4815663361781923761}
   - component: {fileID: 4815663361781923763}
   - component: {fileID: 4815663361781923762}
+  - component: {fileID: 154003744617512241}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -410,6 +411,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: bfe1b9c15f429c942a23334ad41ed47c, type: 2}
   resolutionDropdown: {fileID: 4815663361611836240}
+--- !u!114 &154003744617512241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815663361781923766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7b4b6881fb02b4c959687b169f2d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 6930625442449396215}
+  slider: {fileID: 6930625442086902006}
+  progressText: {fileID: 6930625442637693616}
 --- !u!1 &4815663362092643602
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,9 +977,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4815663361781923762}
     - target: {fileID: 7323203890683021583, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323203890683021583, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4815663361781923763}
+      objectReference: {fileID: 154003744617512241}
+    - target: {fileID: 7323203890683021583, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323203890683021583, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323203890683021583, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 7323203890697755263, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1007,3 +1039,30 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7323203890127165395, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
   m_PrefabInstance: {fileID: 2843340862143583015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6930625442086902006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5141725860469148625, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+  m_PrefabInstance: {fileID: 2843340862143583015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6930625442449396215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5141725861163090640, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+  m_PrefabInstance: {fileID: 2843340862143583015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6930625442637693616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5141725860992094615, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+  m_PrefabInstance: {fileID: 2843340862143583015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
