@@ -150,6 +150,8 @@ public class WeaponController : MonoBehaviour, IDataPersistence
     public event Action OnShootProcessed;
 
     bool m_CanAttack = true;
+    public bool m_IsAttacking = false;
+
     bool m_WantsToShoot = false;
     public float m_CurrentAmmo;
     public int m_CarriedPhysicalBullets;
@@ -507,6 +509,7 @@ public class WeaponController : MonoBehaviour, IDataPersistence
 
     bool TrySlash()
     {
+        m_IsAttacking = true;
         m_CanAttack = false;
         WeaponAnimator.SetTrigger("Attack");
 
@@ -516,11 +519,16 @@ public class WeaponController : MonoBehaviour, IDataPersistence
 
     IEnumerator ResetAttackCooldown()
     {
+        StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(DelayBetweenShots);
         m_CanAttack = true;
     }
 
-     
+    IEnumerator ResetAttackBool()
+    {
+        yield return new WaitForSeconds(DelayBetweenShots);
+        m_IsAttacking = false;
+    }
 
     bool TryShoot()
     {

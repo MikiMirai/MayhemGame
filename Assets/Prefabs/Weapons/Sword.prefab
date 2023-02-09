@@ -668,6 +668,7 @@ GameObject:
   - component: {fileID: 4990925458552294443}
   - component: {fileID: 7102426277562019596}
   - component: {fileID: 245211277013006374}
+  - component: {fileID: 7249803801692885840}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -762,6 +763,7 @@ MonoBehaviour:
   ShootSfx: {fileID: 0}
   ReloadSfx: {fileID: 0}
   ChangeWeaponSfx: {fileID: 0}
+  m_IsAttacking: 0
   m_CurrentAmmo: 0
   m_CarriedPhysicalBullets: 0
   <isOwnerPlayer>k__BackingField: 0
@@ -773,11 +775,26 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4990925458552294440}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.534764, y: 1.7117748, z: 0.83160603}
   m_Center: {x: -1.8103378, y: -0.2037903, z: -0.0027159993}
+--- !u!114 &7249803801692885840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990925458552294440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94b5ad3102a37646aafd4ebfaba75cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  m_WeaponController: {fileID: 7102426277562019596}
+  m_HitParticle: {fileID: 0}
 --- !u!1 &4990925458728421388
 GameObject:
   m_ObjectHideFlags: 0
