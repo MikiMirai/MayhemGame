@@ -33,7 +33,7 @@ public struct CrosshairData
     public Color CrosshairColor;
 }
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : MonoBehaviour, IDataPersistence
 {
     [Header("Information")]
     [Tooltip("The name of the weapon displayed in the UI")]
@@ -193,8 +193,8 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        m_CurrentAmmo = MaxWeaponAmmo;
-        m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
+        //m_CurrentAmmo = MaxWeaponAmmo;
+        //m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0; Because of loadData
         m_LastMuzzlePosition = WeaponMuzzle.position;
         m_PlayerWeaponManager = FindObjectOfType<PlayerWeaponsManager>();
 
@@ -223,6 +223,25 @@ public class WeaponController : MonoBehaviour
         {
             isOwnerPlayer = false;
         }
+    }
+    public void LoadData(GameData data)
+    {
+        if (data.CarriedAmmo == 0 && data.MagazineAmmo == 0)
+        {
+            m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
+            m_CurrentAmmo = MaxWeaponAmmo;
+        }
+        else
+        {
+            m_CarriedPhysicalBullets = data.CarriedAmmo;
+            m_CurrentAmmo = data.MagazineAmmo;
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.CarriedAmmo = m_CarriedPhysicalBullets;
+        data.MagazineAmmo = (int)m_CurrentAmmo;
     }
 
     //change it so it doesnt go higher than MaxCarriableAmmo
@@ -595,5 +614,7 @@ public class WeaponController : MonoBehaviour
 
         return spreadWorldDirection;
     }
+
+    
 }
 
