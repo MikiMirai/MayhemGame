@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 4815663361781923763}
   - component: {fileID: 4815663361781923762}
   - component: {fileID: 154003744617512241}
+  - component: {fileID: 3280065832499804605}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -426,6 +427,19 @@ MonoBehaviour:
   loadingScreen: {fileID: 6930625442449396215}
   slider: {fileID: 6930625442086902006}
   progressText: {fileID: 6930625442637693616}
+--- !u!114 &3280065832499804605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815663361781923766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c218e6efcdcbef64ea81f36b64746b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: save
 --- !u!1 &4815663362092643602
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +571,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815663362168856642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.475, y: 1.652, z: 1.8729999}
+  m_LocalPosition: {x: 0.5, y: 1.652, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -852,6 +866,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9013557713503854572}
     m_Modifications:
+    - target: {fileID: 3300101018153052343, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3280065832499804605}
+    - target: {fileID: 3300101018153052343, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6567867019559824185, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3280065832499804605}
+    - target: {fileID: 6567867019559824185, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadGame
+      objectReference: {fileID: 0}
     - target: {fileID: 7323203888827676235, guid: 98f244e5da8edbe4992e6af526d4784a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
