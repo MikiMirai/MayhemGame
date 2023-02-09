@@ -1,6 +1,7 @@
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,7 @@ public enum WeaponShootType
 {
     Manual,
     Automatic,
+    Melee,
     Charge,
 }
 
@@ -60,7 +62,7 @@ public class WeaponController : MonoBehaviour
     [Tooltip("The type of ammo the weapon uses")]
     public AmmoType AmmoType;
 
-    [Tooltip("Minimum time between 2 shots")]
+    [Tooltip("Minimum time between 2 shots/hits")]
     public float DelayBetweenShots = 0.5f;
 
     [Tooltip("Angle for the cone in which the bullets will be shot randomly (0 means no spread at all)")]
@@ -147,6 +149,7 @@ public class WeaponController : MonoBehaviour
     public UnityAction OnShoot;
     public event Action OnShootProcessed;
 
+    bool m_CanAttack = true;
     bool m_WantsToShoot = false;
     public float m_CurrentAmmo;
     public int m_CarriedPhysicalBullets;
@@ -184,10 +187,15 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         //player save?
+        m_WeaponAudioSource = GetComponent<AudioSource>();
+        if (ShootType == WeaponShootType.Melee)
+        {
+            return;
+        }
+
         m_CurrentAmmo = MaxWeaponAmmo;
         m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
         m_LastMuzzlePosition = WeaponMuzzle.position;
-        m_WeaponAudioSource = GetComponent<AudioSource>();
         m_PlayerWeaponManager = FindObjectOfType<PlayerWeaponsManager>();
 
         if (HasPhysicalBullets)
@@ -373,21 +381,14 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        //UpdateAmmo();
         UpdateCharge();
 
-        if (Time.deltaTime > 0)
+        if (Time.deltaTime > 0 && ShootType != WeaponShootType.Melee)
         {
             MuzzleWorldVelocity = (WeaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
             m_LastMuzzlePosition = WeaponMuzzle.position;
         }
     }
-
-    //void UpdateAmmo()
-    //{
-    //    //Ammo updates on weapon manager, use for something else
-    //    ammoText.text = $"{m_CurrentAmmo} / {m_CarriedPhysicalBullets}";
-    //}
 
     void UpdateCharge()
     {
@@ -459,6 +460,13 @@ public class WeaponController : MonoBehaviour
 
                 return false;
 
+            case WeaponShootType.Melee:
+                if (inputDown && m_CanAttack)
+                {
+                    return TrySlash();
+                }
+                return false;
+
             case WeaponShootType.Charge:
                 if (inputHeld)
                 {
@@ -477,6 +485,23 @@ public class WeaponController : MonoBehaviour
                 return false;
         }
     }
+
+    bool TrySlash()
+    {
+        m_CanAttack = false;
+        WeaponAnimator.SetTrigger("Attack");
+
+        StartCoroutine(ResetAttackCooldown());
+        return true;
+    }
+
+    IEnumerator ResetAttackCooldown()
+    {
+        yield return new WaitForSeconds(DelayBetweenShots);
+        m_CanAttack = true;
+    }
+
+     
 
     bool TryShoot()
     {

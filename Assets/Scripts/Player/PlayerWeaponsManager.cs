@@ -138,7 +138,7 @@ public class PlayerWeaponsManager : MonoBehaviour
 
         if (activeWeapon != null && m_WeaponSwitchState == WeaponSwitchState.Up)
         {
-            if (!activeWeapon.AutomaticReload && m_InputHandler.GetReloadButtonDown() && !activeWeapon.IsReloading)
+            if (!activeWeapon.AutomaticReload && m_InputHandler.GetReloadButtonDown() && !activeWeapon.IsReloading && activeWeapon.ShootType != WeaponShootType.Melee)
             {
                 IsAiming = false;
                 activeWeapon.StartReloadAnimation(CheckForPlayerAmmo(activeWeapon));
