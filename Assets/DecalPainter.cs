@@ -27,30 +27,30 @@ public class DecalPainter : MonoBehaviour
     {
         decalMaterials = new Material[decalData.Length];
         decalSwitchAction.Enable();
-        decalSwitchAction.performed += SwitchDecal;
+        //decalSwitchAction.performed += SwitchDecal;
         selectedDecalIndex = 0;
-        foreach (Image image in FindObjectsOfType<Image>())
-        {
-            if (image.CompareTag("Decal"))
-            {
-                decalImage = image;
-                break;
-            }
-        }
+        //foreach (Image image in FindObjectsOfType<Image>())
+        //{
+        //    if (image.CompareTag("Decal"))
+        //    {
+        //        decalImage = image;
+        //        break;
+        //    }
+        //}
     }
     //Setting up UI image to selected decal image
-    private void Start()
-    {
-        decalImage.sprite = decalData[selectedDecalIndex].sprite;
-    }
+    //private void Start()
+    //{
+    //    decalImage.sprite = decalData[selectedDecalIndex].sprite;
+    //}
 
-    private void SwitchDecal(InputAction.CallbackContext obj)
-    {
-        selectedDecalIndex++;
-        if (selectedDecalIndex >= decalData.Length)
-            selectedDecalIndex = 0;
-        decalImage.sprite = decalData[selectedDecalIndex].sprite;
-    }
+    //private void SwitchDecal(InputAction.CallbackContext obj)
+    //{
+    //    selectedDecalIndex++;
+    //    if (selectedDecalIndex >= decalData.Length)
+    //        selectedDecalIndex = 0;
+    //    decalImage.sprite = decalData[selectedDecalIndex].sprite;
+    //}
 
     //You could get hit.point and hit.normal by shooting a ray in the direction of the wall
     //Ex:

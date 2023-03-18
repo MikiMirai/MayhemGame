@@ -3,25 +3,31 @@ using UnityEngine.AI;
 
 public class EnemyNav : MonoBehaviour
 {
+    [Header("References")]
     public NavMeshAgent agent;
-
     public Transform player;
-
+    public EnemyWeaponManager m_weaponsManager;
     public LayerMask whatIsGround, whatIsPlayer;
 
     //Patroling
+    [Header("Patroling")]
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
 
     //Attacking
+    [Header("Attacking")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
 
     //States
+    [Header("States")]
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
+    [Header("Debug")]
+    public bool shootBalls = false;
 
     private void Awake()
     {
@@ -80,9 +86,15 @@ public class EnemyNav : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            ///Attack player with the weapon
+            m_weaponsManager.fireInputDown = true;
+
+            if (shootBalls)
+            {
+                Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+                rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            }
             ///End of attack code
 
             alreadyAttacked = true;
@@ -91,6 +103,7 @@ public class EnemyNav : MonoBehaviour
     }
     private void ResetAttack()
     {
+        m_weaponsManager.fireInputDown = false;
         alreadyAttacked = false;
     }
 

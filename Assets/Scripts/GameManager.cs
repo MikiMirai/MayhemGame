@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public int currentPumpkin;
     public TextMeshProUGUI pumpkinText;
 
-    private void Start()
+    private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

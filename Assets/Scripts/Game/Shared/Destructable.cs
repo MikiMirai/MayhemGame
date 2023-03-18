@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Destructable : MonoBehaviour
 {
+    [Tooltip("Health amount of this object")]
     Health _Health;
 
     void Start()

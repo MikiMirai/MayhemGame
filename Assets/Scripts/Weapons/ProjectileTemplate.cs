@@ -11,6 +11,9 @@ public class ProjectileTemplate : ProjectileBase
     [Tooltip("Radius of this projectile's collision detection")]
     public float Radius = 0.01f;
 
+    [Header("References")]
+    [SerializeField] private DecalPainter decalPainter;
+
     [Tooltip("LifeTime of the projectile")]
     public float MaxLifeTime = 5f;
 
@@ -204,7 +207,7 @@ public class ProjectileTemplate : ProjectileBase
         {
             damageable.InflictDamage(Damage, false, m_ProjectileBase.Owner);
         }
-
+        decalPainter.PaintDecal(point, normal,collider);
         // Self destruct
         Destroy(this.gameObject);
     }
