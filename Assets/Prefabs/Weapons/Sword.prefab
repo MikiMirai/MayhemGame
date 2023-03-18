@@ -667,8 +667,8 @@ GameObject:
   - component: {fileID: 4990925458552294442}
   - component: {fileID: 4990925458552294443}
   - component: {fileID: 7102426277562019596}
-  - component: {fileID: 245211277013006374}
-  - component: {fileID: 7249803801692885840}
+  - component: {fileID: 8602430321361034155}
+  - component: {fileID: 2079928025854503750}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -767,20 +767,7 @@ MonoBehaviour:
   m_CurrentAmmo: 0
   m_CarriedPhysicalBullets: 0
   <isOwnerPlayer>k__BackingField: 0
---- !u!65 &245211277013006374
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4990925458552294440}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.534764, y: 1.7117748, z: 0.83160603}
-  m_Center: {x: -1.8103378, y: -0.2037903, z: -0.0027159993}
---- !u!114 &7249803801692885840
+--- !u!114 &8602430321361034155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -795,6 +782,19 @@ MonoBehaviour:
   Damage: 10
   m_WeaponController: {fileID: 7102426277562019596}
   m_HitParticle: {fileID: 0}
+--- !u!65 &2079928025854503750
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4990925458552294440}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6, y: 1.08, z: 0.91}
+  m_Center: {x: -1.82, y: 0.15, z: 0}
 --- !u!1 &4990925458728421388
 GameObject:
   m_ObjectHideFlags: 0
