@@ -2625,7 +2625,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh76196
+  m_Name: pb_Mesh60692
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3486,6 +3486,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &869155877
 GameObject:
   m_ObjectHideFlags: 0
@@ -14192,6 +14193,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1415856594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18368,6 +18370,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1630171229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19842,6 +19845,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1836909284
 GameObject:
   m_ObjectHideFlags: 0
@@ -33348,6 +33352,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6332157740826504939
 MonoBehaviour:
   m_ObjectHideFlags: 0
