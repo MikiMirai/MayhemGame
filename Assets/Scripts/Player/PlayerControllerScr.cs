@@ -104,18 +104,21 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void Update()
     {
+        //Set animator values
+        animator.SetBool("isGrounded", characterController.isGrounded);
+        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        animator.SetBool("WalkingLeft", isWalkingLeft);
+        animator.SetBool("WalkingRight", isWalkingRight);
+    }
+
+    private void FixedUpdate()
+    {
         CalculateMovement();
         CalculateView();
         CalculateJump();
         CalculateStance();
 
         CheckGrounded();
-
-        //Set animator values
-        animator.SetBool("isGrounded", characterController.isGrounded);
-        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
-        animator.SetBool("WalkingLeft", isWalkingLeft);
-        animator.SetBool("WalkingRight", isWalkingRight);
     }
 
     private void CheckGrounded()
