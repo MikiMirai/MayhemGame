@@ -13648,7 +13648,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 6332157741608911990}
   m_Lens:
-    FieldOfView: 59.99999
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -27968,7 +27968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4815663362168856700, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: field of view
-      value: 59.99999
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4815663362168856703, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: m_LocalPosition.x
