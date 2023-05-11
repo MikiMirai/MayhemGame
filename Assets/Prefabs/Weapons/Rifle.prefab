@@ -486,6 +486,8 @@ MonoBehaviour:
   WeaponIcon: {fileID: 21300000, guid: 6b904123bb0130d419dd121a47e4a69d, type: 3}
   WeaponRoot: {fileID: 9093929487303528635}
   WeaponMuzzle: {fileID: 2332230923500157573}
+  MuzzleFlashPrefab: {fileID: 5020382459979530564, guid: 563c94d983699a84bb32d85f3bb655cb, type: 3}
+  UnparentMuzzleFlash: 0
   CrosshairDataDefault:
     CrosshairSprite: {fileID: 21300000, guid: 6b904123bb0130d419dd121a47e4a69d, type: 3}
     CrosshairSize: 1
@@ -520,8 +522,10 @@ MonoBehaviour:
   ShootSfx: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
   ReloadSfx: {fileID: 8300000, guid: 3c5c1d4d7b9307c458890a4beb12e4ae, type: 3}
   ChangeWeaponSfx: {fileID: 0}
+  m_IsAttacking: 0
   m_CurrentAmmo: 0
   m_CarriedPhysicalBullets: 0
+  <isOwnerPlayer>k__BackingField: 0
 --- !u!82 &-8509524618815094089
 AudioSource:
   m_ObjectHideFlags: 0
