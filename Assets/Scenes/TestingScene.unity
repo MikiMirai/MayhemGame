@@ -2085,7 +2085,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30338
+  m_Name: pb_Mesh42650
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11149,14 +11149,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991147874}
-  m_LocalRotation: {x: -0, y: -0, z: 0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: 34.79, y: 4.29, z: 8.03}
+  m_LocalRotation: {x: -0.06647341, y: 0.06647341, z: 0.7039753, w: 0.7039753}
+  m_LocalPosition: {x: 34.79, y: 4.98, z: 7.548771}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1999426873}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: -10.788, y: 0, z: 90}
 --- !u!114 &1025213533 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4815663361178897088, guid: b012172f53354784eb2472d1f4e12799, type: 3}
@@ -13648,7 +13648,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 6332157741608911990}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 59.97362
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -27968,7 +27968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4815663362168856700, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: field of view
-      value: 60
+      value: 59.97362
       objectReference: {fileID: 0}
     - target: {fileID: 4815663362168856703, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: m_LocalPosition.x
