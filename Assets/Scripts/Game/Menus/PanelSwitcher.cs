@@ -33,6 +33,18 @@ public class PanelSwitcher : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        if (activateDefaultPanel && defaultPanelReference != null)
+        {
+            SwitchTo(defaultPanelReference);
+        }
+        if (activateDefaultButtonColor)
+        {
+            defaultButton.Select();
+        }
+    }
+
     public void SwitchTo(GameObject panel)
     {
         foreach (var item in panelsList)
