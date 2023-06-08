@@ -70,4 +70,14 @@ public class SettingsMenu : MonoBehaviour
     {
         player.playerSettings.ViewYSensitivity = sensitivity;
     }
+
+    public void SetViewHorizontalInverted(bool inverted)
+    {
+        player.playerSettings.ViewXInverted = inverted;
+    }
+
+    public void SetViewVerticalInverted(bool inverted)
+    {
+        player.playerSettings.ViewYInverted = inverted;
+    }
 }
