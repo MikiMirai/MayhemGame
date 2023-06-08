@@ -152,7 +152,7 @@ public class PlayerControllerScr : MonoBehaviour
         else 
         {
             //Rotate the Follow Target transform based on the input
-            cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
+            cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
         }
 
         #endregion
