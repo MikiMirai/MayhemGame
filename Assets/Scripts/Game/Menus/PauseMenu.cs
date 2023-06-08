@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -84,14 +83,6 @@ public class PauseMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         pauseMenu.SetActive(true);
     }
-
-    // Deprecated
-    //public void GoToMainMenu()
-    //{
-    //    Time.timeScale = 1f;
-    //    isPaused = false;
-    //    SceneManager.LoadScene("MainMenu");
-    //}
 
     public void QuitGame()
     {
