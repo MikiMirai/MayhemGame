@@ -15,11 +15,19 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         inputManager.HandleAllInputs();
     }
 
     private void FixedUpdate()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         playerLocomotion.HandleAllMovement();
     }
 
