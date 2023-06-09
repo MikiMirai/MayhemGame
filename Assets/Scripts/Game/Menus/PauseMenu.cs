@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,6 +13,11 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (m_InputHandler == null)
+        {
+            Debug.Log($"Input Handler reference not found on {this.name}");
+        }
+
         pauseMenu.SetActive(false);
     }
 
@@ -35,9 +39,16 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
+        try
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+            isPaused = true;
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex);
+        }
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -45,10 +56,18 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+        try
+        {
+
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+            Time.timeScale = 1f;
+            isPaused = false;
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex);
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -65,14 +84,6 @@ public class PauseMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         pauseMenu.SetActive(true);
     }
-
-    // Deprecated
-    //public void GoToMainMenu()
-    //{
-    //    Time.timeScale = 1f;
-    //    isPaused = false;
-    //    SceneManager.LoadScene("MainMenu");
-    //}
 
     public void QuitGame()
     {

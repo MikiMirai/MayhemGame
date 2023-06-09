@@ -2,7 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using static PlayerModels;
 
-public class PlayerControllerScr : MonoBehaviour
+public class ThirdPersonMovement : MonoBehaviour
 {
     //Attach animator to set values
     [Header("Animation")]
@@ -18,6 +18,9 @@ public class PlayerControllerScr : MonoBehaviour
     private Vector3 newCharacterRotation;
 
     [Header("References")]
+    public Transform orientation;
+    public Transform player;
+    public Transform playerObj;
     [Tooltip("Neck-height object for first person camera and weapons")]
     public Transform cameraHolder;
     [Tooltip("Empty game object placed at feet")]
@@ -26,8 +29,6 @@ public class PlayerControllerScr : MonoBehaviour
     public GameObject ThirdPersonCameraHolder;
     [Tooltip("Third person camera")]
     public CinemachineVirtualCamera ThirdPersonCamera;
-    [Tooltip("First person camera")]
-    public Camera FirstPersonCamera;
     [Tooltip("Choose the player layer to be checked for the stances")]
     public LayerMask playerMask;
 
@@ -41,9 +42,9 @@ public class PlayerControllerScr : MonoBehaviour
 
     [Header("Gravity")]
     [Tooltip("Amount of gravity applied to player when falling")]
-    public float gravityAmount;
+    public float gravityAmount = 0.09f;
     [Tooltip("Max amount of gravity force when falling")]
-    public float gravityMin;
+    public float gravityMin = -1;
     private float playerGravity;
 
     [Tooltip("")]
@@ -102,23 +103,20 @@ public class PlayerControllerScr : MonoBehaviour
         cameraHeight = cameraHolder.localPosition.y;
     }
 
-    private void Update()
-    {
-        //Set animator values
-        animator.SetBool("isGrounded", characterController.isGrounded);
-        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
-        animator.SetBool("WalkingLeft", isWalkingLeft);
-        animator.SetBool("WalkingRight", isWalkingRight);
-    }
-
     private void FixedUpdate()
     {
         CalculateMovement();
         CalculateView();
         CalculateJump();
-        CalculateStance();
+        //CalculateStance();
 
         CheckGrounded();
+
+        //Set animator values
+        animator.SetBool("isGrounded", characterController.isGrounded);
+        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        animator.SetBool("WalkingLeft", isWalkingLeft);
+        animator.SetBool("WalkingRight", isWalkingRight);
     }
 
     private void CheckGrounded()
@@ -149,7 +147,7 @@ public class PlayerControllerScr : MonoBehaviour
             //Turning rotation vector, back to quaternion
             transform.localRotation = Quaternion.Euler(newCharacterRotation);
         }
-        else 
+        else
         {
             //Rotate the Follow Target transform based on the input
             cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
@@ -165,15 +163,6 @@ public class PlayerControllerScr : MonoBehaviour
 
         var angle = cameraHolder.transform.localEulerAngles.x;
 
-        //Clamp the Up/Down rotation
-        //if (angle > 180 && angle < viewClampYMin)
-        //{
-        //    angles.x = viewClampYMin;
-        //}
-        //else if (angle < 180 && angle > viewClampYMax)
-        //{
-        //    angles.x = viewClampYMax;
-        //}
         if (angle > 180 && angle < viewClampYMin)
         {
             angles.x = viewClampYMin;
@@ -203,6 +192,7 @@ public class PlayerControllerScr : MonoBehaviour
 
         //Set the player rotation based on the look transform
         transform.rotation = Quaternion.Euler(0, cameraHolder.transform.rotation.eulerAngles.y, 0);
+
         //reset the y rotation of the look transform
         cameraHolder.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
@@ -308,7 +298,7 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void Crouch()
     {
-        if(playerStance == PlayerStance.Crouch)
+        if (playerStance == PlayerStance.Crouch)
         {
             if (StanceCheck(playerStandStance.StanceCollider.height))
             {
@@ -317,19 +307,19 @@ public class PlayerControllerScr : MonoBehaviour
 
             playerStance = PlayerStance.Stand;
             return;
-        } 
-        
+        }
+
         if (StanceCheck(playerCrouchStance.StanceCollider.height))
-            {
-                return;
-            }
+        {
+            return;
+        }
 
         playerStance = PlayerStance.Crouch;
     }
 
     private void Prone()
     {
-        if(playerStance == PlayerStance.Prone)
+        if (playerStance == PlayerStance.Prone)
         {
             if (StanceCheck(playerStandStance.StanceCollider.height))
             {
@@ -366,5 +356,4 @@ public class PlayerControllerScr : MonoBehaviour
 
         isSprinting = !isSprinting;
     }
-
 }
