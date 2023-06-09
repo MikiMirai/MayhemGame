@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyNav : MonoBehaviour
@@ -31,7 +32,7 @@ public class EnemyNav : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("PlayerObj").transform;
+        player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault().transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
