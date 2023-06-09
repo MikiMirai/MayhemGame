@@ -22,7 +22,7 @@ public class ThirdPersonCam : MonoBehaviour
         Cursor.visible = false;
 
         //Get all input keys/axis
-        defaultInput.Character.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
+        defaultInput.Player.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
 
         defaultInput.Enable();
     }
