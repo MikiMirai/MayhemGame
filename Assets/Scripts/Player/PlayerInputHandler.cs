@@ -64,7 +64,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
-            return playerControls.Player.Fire.ReadValue<float>() > 0.1f;
+            return playerControls.PlayerMovement.Fire.ReadValue<float>() > 0.1f;
         }
 
         return false;
@@ -74,7 +74,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
-            return playerControls.Player.Aim.ReadValue<float>() > 0.1f;
+            return playerControls.PlayerMovement.Aim.ReadValue<float>() > 0.1f;
         }
 
         return false;
@@ -84,7 +84,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
-            return playerControls.Player.Reload.ReadValue<float>() > 0.1f;
+            return playerControls.PlayerMovement.Reload.ReadValue<float>() > 0.1f;
         }
 
         return false;
