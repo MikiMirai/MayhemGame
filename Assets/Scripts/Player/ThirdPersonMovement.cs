@@ -89,7 +89,7 @@ public class ThirdPersonMovement : MonoBehaviour
         //Get all input keys/axis
         defaultInput.PlayerMovement.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
         defaultInput.PlayerMovement.View.performed += e => input_View = e.ReadValue<Vector2>();
-        defaultInput.PlayerMovement.Jump.performed += e => Jump();
+        defaultInput.PlayerActions.Jump.performed += e => Jump();
         defaultInput.PlayerMovement.Crouch.performed += e => Crouch();
         defaultInput.PlayerMovement.Prone.performed += e => Prone();
         defaultInput.PlayerMovement.Sprinting.performed += e => ToggleSprint();
