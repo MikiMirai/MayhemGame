@@ -2,7 +2,7 @@
     "name": "DefaultInput",
     "maps": [
         {
-            "name": "Player",
+            "name": "Player Movement",
             "id": "e6ca6036-94ec-476c-a421-7b9d74d8e486",
             "actions": [
                 {
@@ -389,6 +389,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Player Actions",
+            "id": "327c0f5c-5e79-4642-84c0-33527e699ade",
+            "actions": [
+                {
+                    "name": "X",
+                    "type": "Button",
+                    "id": "bc23fa79-97b5-404f-a194-6d63920e02f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9a2015ce-75b1-478d-b9b8-cc5ff767635e",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93bd676b-8941-40e5-87f7-4b60c7c84163",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
