@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "7b1bc51c-fd9d-419a-b458-6711d708f9bb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Fire",
                     "type": "Button",
                     "id": "211659f6-57bc-45d9-b50e-5e6d2b67fb09",
@@ -284,17 +275,6 @@
                 },
                 {
                     "name": "",
-                    "id": "7367be47-6cd1-4838-95c9-3dee40bf86d9",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fb9d722b-9b9b-4c13-8746-8be771361bba",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -399,9 +379,18 @@
             "id": "327c0f5c-5e79-4642-84c0-33527e699ade",
             "actions": [
                 {
-                    "name": "X",
+                    "name": "Sprint",
                     "type": "Button",
                     "id": "bc23fa79-97b5-404f-a194-6d63920e02f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "ff9cd5ae-169f-4d55-89f5-ec264c2f4937",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -416,7 +405,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -427,7 +416,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b89f4a4-24e3-42b3-b29c-451631aa65e3",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97717c85-68cc-4282-b3f1-575001c94098",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
