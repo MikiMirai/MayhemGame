@@ -20306,8 +20306,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da743104a907f54da1e6b2da9dd5e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
+  cameraPivot: {fileID: 1099673926}
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 897
   cameraFollowSpeed: 0.2
+  cameraLookSpeed: 2
+  cameraPivotSpeed: 2
+  minimumPivotAngle: -35
+  maximumPivotAngle: 35
+  cameraCollisionRadius: 0.2
+  cameraCollisionOffset: 0.2
+  minimumCollisionOffSet: 0.2
+  lookAngle: 0
+  pivotAngle: 0
+  targetTransform: {fileID: 0}
+  cameraTransform: {fileID: 0}
 --- !u!4 &1710738094
 Transform:
   m_ObjectHideFlags: 0
@@ -29094,6 +29108,10 @@ PrefabInstance:
     - target: {fileID: 4754771295054718395, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: m_Name
       value: LowPolyMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 4754771295054718395, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5383921282520039169, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: m_RootOrder

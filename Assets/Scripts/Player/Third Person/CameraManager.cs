@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [Header("References")]
     InputManager inputManager;
-    public Transform targetTransform; // The object the camera will follow
+
+    [Header("References")]
     public Transform cameraPivot;
-    public Transform cameraTransform;
     public LayerMask collisionLayers;
     private float defaultPosition;
 
@@ -25,6 +24,8 @@ public class CameraManager : MonoBehaviour
     [Header("Debug")]
     public float lookAngle; // Camera look up/right
     public float pivotAngle; // Camera look left/right
+    public Transform targetTransform; // The object the camera will follow
+    public Transform cameraTransform;
 
     private Vector3 cameraFollowVelocity = Vector3.zero;
     private Vector3 cameraVectorPosition;
@@ -83,7 +84,7 @@ public class CameraManager : MonoBehaviour
             (cameraPivot.transform.position, cameraCollisionRadius, direction, out hit, Mathf.Abs(targetPosition), collisionLayers))
         {
             float distance = Vector3.Distance(cameraPivot.position, hit.point);
-            targetPosition = targetPosition - (distance - cameraCollisionOffset);
+            targetPosition =- (distance - cameraCollisionOffset);
         }
 
         if (Mathf.Abs(targetPosition) < minimumCollisionOffSet)

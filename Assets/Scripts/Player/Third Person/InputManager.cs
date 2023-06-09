@@ -4,6 +4,7 @@ public class InputManager : MonoBehaviour
 {
     DefaultInput playerControls;
     AnimatorManager animatorManager;
+    PlayerLocomotion playerLocomotion;
 
     public Vector2 movementInput;
     public Vector2 cameraInput;
@@ -11,13 +12,16 @@ public class InputManager : MonoBehaviour
     public float cameraInputX;
     public float cameraInputY;
 
-    private float moveAmount;
+    public float moveAmount;
     public float verticalInput;
     public float horizontalInput;
+
+    public bool x_Input;
 
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
     private void OnEnable()
@@ -26,8 +30,11 @@ public class InputManager : MonoBehaviour
         {
             playerControls = new DefaultInput();
 
-            playerControls.Player.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
-            playerControls.Player.View.performed += i => cameraInput = i.ReadValue<Vector2>();
+            playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+            playerControls.PlayerMovement.View.performed += i => cameraInput = i.ReadValue<Vector2>();
+
+            playerControls.PlayerActions.X.performed += i => x_Input = true;
+            playerControls.PlayerActions.X.canceled += i => x_Input = false;
         }
 
         playerControls.Enable();
@@ -41,6 +48,7 @@ public class InputManager : MonoBehaviour
     public void HandleAllInputs()
     {
         HandleMovementInput();
+        HandleSprintingInput();
         //HandleJumpInput
     }
 
@@ -54,5 +62,17 @@ public class InputManager : MonoBehaviour
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
         animatorManager.UpdateAnimatorValues(0, moveAmount);
+    }
+
+    private void HandleSprintingInput()
+    {
+        if (x_Input && moveAmount > 0.5f)
+        {
+            playerLocomotion.isSprinting = true;
+        }
+        else
+        {
+            playerLocomotion.isSprinting = false;
+        }
     }
 }

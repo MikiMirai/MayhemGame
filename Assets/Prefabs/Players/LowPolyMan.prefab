@@ -2153,9 +2153,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5383921282520039169}
-  - component: {fileID: 3894570943968926846}
   - component: {fileID: 5383921282520039174}
   - component: {fileID: 5383921282520039173}
+  - component: {fileID: 3894570943968926846}
   - component: {fileID: 5383921282520039171}
   - component: {fileID: 5383921282520039172}
   - component: {fileID: 5383921282520039175}
@@ -2196,21 +2196,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3894570943968926846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4754771295054718395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2e22f92afc6084dbd6faa65c681f38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementInput: {x: 0, y: 0}
-  verticalInput: 0
-  horizontalInput: 0
 --- !u!54 &5383921282520039174
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2241,6 +2226,26 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3894570943968926846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754771295054718395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2e22f92afc6084dbd6faa65c681f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementInput: {x: 0, y: 0}
+  cameraInput: {x: 0, y: 0}
+  cameraInputX: 0
+  cameraInputY: 0
+  moveAmount: 0
+  verticalInput: 0
+  horizontalInput: 0
+  x_Input: 0
 --- !u!114 &5383921282520039171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,7 +2258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895a94b8d4ecfd14aa3bb70fcc256288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
+  isSprinting: 0
+  walkingSpeed: 1.5
+  runningSpeed: 5
+  sprintingSpeed: 7
   rotationSpeed: 15
 --- !u!114 &5383921282520039172
 MonoBehaviour:
