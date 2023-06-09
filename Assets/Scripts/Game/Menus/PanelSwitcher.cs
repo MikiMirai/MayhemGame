@@ -39,6 +39,11 @@ public class PanelSwitcher : MonoBehaviour
         {
             SwitchTo(defaultPanelReference);
         }
+        else
+        {
+            SwitchTo(null);
+        }
+
         if (activateDefaultButtonColor)
         {
             defaultButton.Select();
@@ -55,7 +60,10 @@ public class PanelSwitcher : MonoBehaviour
             }
         }
 
-        GameObject clickedPanel = panelsList.FirstOrDefault(x=> x.name == panel.name);
-        clickedPanel.SetActive(true);
+        if (panel != null)
+        {
+            GameObject clickedPanel = panelsList.FirstOrDefault(x => x.name == panel.name);
+            clickedPanel.SetActive(true);
+        }
     }
 }

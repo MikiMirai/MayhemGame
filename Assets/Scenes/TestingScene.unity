@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1865.2617, g: 2311.2383, b: 3059.1133, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1909,7 +1909,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386027870}
-  m_LocalRotation: {x: 0.11559232, y: -0.000000017617044, z: 0.0000000020501374, w: 0.99329674}
+  m_LocalRotation: {x: 0.11559232, y: 0.000000017617044, z: -0.0000000020501374, w: 0.99329674}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29221,9 +29221,17 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1104191905069260198, guid: b012172f53354784eb2472d1f4e12799, type: 3}
+      propertyPath: _PauseMenu
+      value: 
+      objectReference: {fileID: 1134646379}
+    - target: {fileID: 1104191905069260198, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: defaultButton
       value: 
       objectReference: {fileID: 1607621036}
+    - target: {fileID: 1104191905069260198, guid: b012172f53354784eb2472d1f4e12799, type: 3}
+      propertyPath: activateDefaultPanel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1104191905069260198, guid: b012172f53354784eb2472d1f4e12799, type: 3}
       propertyPath: defaultButtonColor.b
       value: 1
