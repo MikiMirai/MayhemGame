@@ -20311,8 +20311,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 897
   cameraFollowSpeed: 0.2
-  cameraLookSpeed: 2
-  cameraPivotSpeed: 2
+  cameraLookSpeed: 1
+  cameraPivotSpeed: 1
   minimumPivotAngle: -35
   maximumPivotAngle: 35
   cameraCollisionRadius: 0.2
@@ -29162,12 +29162,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
+      propertyPath: jumpHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
+      propertyPath: rotationSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: fallingVelocity
       value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: leapingVelocity
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
+      propertyPath: gravityIntensity
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: groundLayer.m_Bits
