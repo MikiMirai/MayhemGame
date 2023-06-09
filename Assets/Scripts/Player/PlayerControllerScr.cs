@@ -86,12 +86,12 @@ public class PlayerControllerScr : MonoBehaviour
         Cursor.visible = false;
 
         //Get all input keys/axis
-        defaultInput.Character.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
-        defaultInput.Character.View.performed += e => input_View = e.ReadValue<Vector2>();
-        defaultInput.Character.Jump.performed += e => Jump();
-        defaultInput.Character.Crouch.performed += e => Crouch();
-        defaultInput.Character.Prone.performed += e => Prone();
-        defaultInput.Character.Sprinting.performed += e => ToggleSprint();
+        defaultInput.Player.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
+        defaultInput.Player.View.performed += e => input_View = e.ReadValue<Vector2>();
+        defaultInput.Player.Jump.performed += e => Jump();
+        defaultInput.Player.Crouch.performed += e => Crouch();
+        defaultInput.Player.Prone.performed += e => Prone();
+        defaultInput.Player.Sprinting.performed += e => ToggleSprint();
 
         defaultInput.Enable();
 
