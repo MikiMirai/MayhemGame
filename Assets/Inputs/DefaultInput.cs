@@ -24,7 +24,7 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
     ""name"": ""DefaultInput"",
     ""maps"": [
         {
-            ""name"": ""Character"",
+            ""name"": ""Player"",
             ""id"": ""e6ca6036-94ec-476c-a421-7b9d74d8e486"",
             ""actions"": [
                 {
@@ -142,7 +142,7 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WASD"",
                     ""id"": ""b6e20182-09da-43e8-aa3b-2128eab47207"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -309,19 +309,19 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Character
-        m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
-        m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
-        m_Character_View = m_Character.FindAction("View", throwIfNotFound: true);
-        m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
-        m_Character_Fire = m_Character.FindAction("Fire", throwIfNotFound: true);
-        m_Character_Aim = m_Character.FindAction("Aim", throwIfNotFound: true);
-        m_Character_Reload = m_Character.FindAction("Reload", throwIfNotFound: true);
-        m_Character_Sprinting = m_Character.FindAction("Sprinting", throwIfNotFound: true);
-        m_Character_SprintReleased = m_Character.FindAction("SprintReleased", throwIfNotFound: true);
-        m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
-        m_Character_Prone = m_Character.FindAction("Prone", throwIfNotFound: true);
-        m_Character_Pause = m_Character.FindAction("Pause", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_View = m_Player.FindAction("View", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_Sprinting = m_Player.FindAction("Sprinting", throwIfNotFound: true);
+        m_Player_SprintReleased = m_Player.FindAction("SprintReleased", throwIfNotFound: true);
+        m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_Prone = m_Player.FindAction("Prone", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -380,44 +380,44 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Character
-    private readonly InputActionMap m_Character;
-    private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
-    private readonly InputAction m_Character_Movement;
-    private readonly InputAction m_Character_View;
-    private readonly InputAction m_Character_Jump;
-    private readonly InputAction m_Character_Fire;
-    private readonly InputAction m_Character_Aim;
-    private readonly InputAction m_Character_Reload;
-    private readonly InputAction m_Character_Sprinting;
-    private readonly InputAction m_Character_SprintReleased;
-    private readonly InputAction m_Character_Crouch;
-    private readonly InputAction m_Character_Prone;
-    private readonly InputAction m_Character_Pause;
-    public struct CharacterActions
+    // Player
+    private readonly InputActionMap m_Player;
+    private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+    private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_View;
+    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_Aim;
+    private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_Sprinting;
+    private readonly InputAction m_Player_SprintReleased;
+    private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_Prone;
+    private readonly InputAction m_Player_Pause;
+    public struct PlayerActions
     {
         private @DefaultInput m_Wrapper;
-        public CharacterActions(@DefaultInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Character_Movement;
-        public InputAction @View => m_Wrapper.m_Character_View;
-        public InputAction @Jump => m_Wrapper.m_Character_Jump;
-        public InputAction @Fire => m_Wrapper.m_Character_Fire;
-        public InputAction @Aim => m_Wrapper.m_Character_Aim;
-        public InputAction @Reload => m_Wrapper.m_Character_Reload;
-        public InputAction @Sprinting => m_Wrapper.m_Character_Sprinting;
-        public InputAction @SprintReleased => m_Wrapper.m_Character_SprintReleased;
-        public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
-        public InputAction @Prone => m_Wrapper.m_Character_Prone;
-        public InputAction @Pause => m_Wrapper.m_Character_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_Character; }
+        public PlayerActions(@DefaultInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @View => m_Wrapper.m_Player_View;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @Aim => m_Wrapper.m_Player_Aim;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @Sprinting => m_Wrapper.m_Player_Sprinting;
+        public InputAction @SprintReleased => m_Wrapper.m_Player_SprintReleased;
+        public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @Prone => m_Wrapper.m_Player_Prone;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CharacterActions set) { return set.Get(); }
-        public void AddCallbacks(ICharacterActions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerActions instance)
         {
-            if (instance == null || m_Wrapper.m_CharacterActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_CharacterActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
@@ -453,7 +453,7 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
             @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(ICharacterActions instance)
+        private void UnregisterCallbacks(IPlayerActions instance)
         {
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
@@ -490,22 +490,22 @@ public partial class @DefaultInput: IInputActionCollection2, IDisposable
             @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(ICharacterActions instance)
+        public void RemoveCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_CharacterActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(ICharacterActions instance)
+        public void SetCallbacks(IPlayerActions instance)
         {
-            foreach (var item in m_Wrapper.m_CharacterActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_CharacterActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public CharacterActions @Character => new CharacterActions(this);
-    public interface ICharacterActions
+    public PlayerActions @Player => new PlayerActions(this);
+    public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnView(InputAction.CallbackContext context);
