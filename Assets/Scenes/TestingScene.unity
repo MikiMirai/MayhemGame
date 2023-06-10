@@ -20311,8 +20311,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 897
   cameraFollowSpeed: 0.2
-  cameraLookSpeed: 1
-  cameraPivotSpeed: 1
+  cameraLookSpeed: 0.2
+  cameraPivotSpeed: 0.2
   minimumPivotAngle: -35
   maximumPivotAngle: 35
   cameraCollisionRadius: 0.2
@@ -29163,7 +29163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: jumpHeight
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5383921282520039171, guid: 8f62bc4e92882b04d84de5a91c05937a, type: 3}
       propertyPath: rotationSpeed
