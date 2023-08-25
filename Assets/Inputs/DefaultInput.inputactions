@@ -2,7 +2,7 @@
     "name": "DefaultInput",
     "maps": [
         {
-            "name": "Character",
+            "name": "Player",
             "id": "e6ca6036-94ec-476c-a421-7b9d74d8e486",
             "actions": [
                 {
@@ -120,7 +120,7 @@
                 {
                     "name": "WASD",
                     "id": "b6e20182-09da-43e8-aa3b-2128eab47207",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -8,6 +8,8 @@ public class SettingsMenu : MonoBehaviour
     [Header("References")]
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown;
+    [Tooltip("Reference to player settings model")]
+    public PlayerControllerScr player;
 
     Resolution[] resolutions;
 
@@ -57,5 +59,25 @@ public class SettingsMenu : MonoBehaviour
     {
         Resolution resoltion = resolutions[resolutionIndex];
         Screen.SetResolution(resoltion.width, resoltion.height, Screen.fullScreen);
+    }
+
+    public void SetViewHorizontal (float sensitivity)
+    {
+        player.playerSettings.ViewXSensitivity = sensitivity;
+    }
+
+    public void SetViewVertical (float sensitivity)
+    {
+        player.playerSettings.ViewYSensitivity = sensitivity;
+    }
+
+    public void SetViewHorizontalInverted(bool inverted)
+    {
+        player.playerSettings.ViewXInverted = inverted;
+    }
+
+    public void SetViewVerticalInverted(bool inverted)
+    {
+        player.playerSettings.ViewYInverted = inverted;
     }
 }

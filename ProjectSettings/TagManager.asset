@@ -8,6 +8,7 @@ TagManager:
   - Static
   - Pickup
   - Decal
+  - Effect
   layers:
   - Default
   - TransparentFX
