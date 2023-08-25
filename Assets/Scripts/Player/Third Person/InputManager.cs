@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     public bool x_Input;
     public bool dodge_Input;
     public bool jump_Input;
+    public bool crouch_Input;
 
     private void Awake()
     {
