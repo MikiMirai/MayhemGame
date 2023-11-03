@@ -86,12 +86,12 @@ public class PlayerControllerScr : MonoBehaviour
         Cursor.visible = false;
 
         //Get all input keys/axis
-        defaultInput.Character.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
-        defaultInput.Character.View.performed += e => input_View = e.ReadValue<Vector2>();
-        defaultInput.Character.Jump.performed += e => Jump();
-        defaultInput.Character.Crouch.performed += e => Crouch();
-        defaultInput.Character.Prone.performed += e => Prone();
-        defaultInput.Character.Sprinting.performed += e => ToggleSprint();
+        defaultInput.Player.Movement.performed += e => input_Movement = e.ReadValue<Vector2>();
+        defaultInput.Player.View.performed += e => input_View = e.ReadValue<Vector2>();
+        defaultInput.Player.Jump.performed += e => Jump();
+        defaultInput.Player.Crouch.performed += e => Crouch();
+        defaultInput.Player.Prone.performed += e => Prone();
+        defaultInput.Player.Sprinting.performed += e => ToggleSprint();
 
         defaultInput.Enable();
 
@@ -104,18 +104,21 @@ public class PlayerControllerScr : MonoBehaviour
 
     private void Update()
     {
+        //Set animator values
+        animator.SetBool("isGrounded", characterController.isGrounded);
+        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
+        animator.SetBool("WalkingLeft", isWalkingLeft);
+        animator.SetBool("WalkingRight", isWalkingRight);
+    }
+
+    private void FixedUpdate()
+    {
         CalculateMovement();
         CalculateView();
         CalculateJump();
         CalculateStance();
 
         CheckGrounded();
-
-        //Set animator values
-        animator.SetBool("isGrounded", characterController.isGrounded);
-        animator.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
-        animator.SetBool("WalkingLeft", isWalkingLeft);
-        animator.SetBool("WalkingRight", isWalkingRight);
     }
 
     private void CheckGrounded()
@@ -149,7 +152,7 @@ public class PlayerControllerScr : MonoBehaviour
         else 
         {
             //Rotate the Follow Target transform based on the input
-            cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewYSensitivity * (playerSettings.ViewYInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
+            cameraHolder.transform.rotation *= Quaternion.AngleAxis(playerSettings.ViewXSensitivity * (playerSettings.ViewXInverted ? input_View.x : input_View.x) * Time.deltaTime, Vector3.up);
         }
 
         #endregion

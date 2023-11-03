@@ -35,6 +35,7 @@ public struct CrosshairData
 
 public class WeaponController : MonoBehaviour
 {
+    //Information
     [Header("Information")]
     [Tooltip("The name of the weapon displayed in the UI")]
     public string WeaponName;
@@ -42,11 +43,19 @@ public class WeaponController : MonoBehaviour
     [Tooltip("The icon of the weapon displayed in the UI")]
     public Sprite WeaponIcon;
 
-    [Header("References")] [Tooltip("Parent object of the weapon to be deactived")]
+    //References
+    [Header("References")] 
+    [Tooltip("Parent object of the weapon to be deactived")]
     public GameObject WeaponRoot;
 
     [Tooltip("Tip of the weapon, where the projectiles are shot")]
     public Transform WeaponMuzzle;
+
+    [Tooltip("Prefab of the muzzle flash")]
+    public GameObject MuzzleFlashPrefab;
+
+    [Tooltip("Unparent the muzzle flash instance on spawn")]
+    public bool UnparentMuzzleFlash;
 
     [Tooltip("Default parameters for the crosshair")]
     public CrosshairData CrosshairDataDefault;
@@ -150,6 +159,8 @@ public class WeaponController : MonoBehaviour
     public event Action OnShootProcessed;
 
     bool m_CanAttack = true;
+    public bool m_IsAttacking = false;
+
     bool m_WantsToShoot = false;
     public float m_CurrentAmmo;
     public int m_CarriedPhysicalBullets;
@@ -488,6 +499,7 @@ public class WeaponController : MonoBehaviour
 
     bool TrySlash()
     {
+        m_IsAttacking = true;
         m_CanAttack = false;
         WeaponAnimator.SetTrigger("Attack");
 
@@ -497,11 +509,16 @@ public class WeaponController : MonoBehaviour
 
     IEnumerator ResetAttackCooldown()
     {
+        StartCoroutine(ResetAttackBool());
         yield return new WaitForSeconds(DelayBetweenShots);
         m_CanAttack = true;
     }
 
-     
+    IEnumerator ResetAttackBool()
+    {
+        yield return new WaitForSeconds(DelayBetweenShots);
+        m_IsAttacking = false;
+    }
 
     bool TryShoot()
     {
@@ -563,7 +580,23 @@ public class WeaponController : MonoBehaviour
             newProjectile.Shoot(this);
         }
 
-        //TODO: Muzzle flash
+        //TODO: Test Muzzle flash
+        if (MuzzleFlashPrefab != null)
+        {
+            GameObject muzzleFlashInstance = Instantiate(MuzzleFlashPrefab, WeaponMuzzle.position,
+                WeaponMuzzle.rotation, WeaponMuzzle.transform);
+            //Unparent the muzzle flash instance
+            if (UnparentMuzzleFlash)
+            {
+                muzzleFlashInstance.transform.SetParent(null);
+            }
+
+            Destroy(muzzleFlashInstance, 2f);
+        }
+        else
+        {
+            Debug.Log($"Muzzle flash prefab missing on {gameObject}");
+        }
 
         if (HasPhysicalBullets)
         {
