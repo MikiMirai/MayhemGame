@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerInputHandler))]
-public class PlayerWeaponsManager : MonoBehaviour
+public class PlayerWeaponsManager : MonoBehaviour, IDataPersistence
 {
     public enum WeaponSwitchState
     {
@@ -129,6 +129,18 @@ public class PlayerWeaponsManager : MonoBehaviour
         SwitchWeapon(true);
     }
 
+    public void LoadData(GameData data)
+    {
+        if (data.allWeapons.Count != 0)
+        {
+			StartingWeapons = data.allWeapons;
+		}
+    }
+
+    public void SaveData(ref GameData data)
+    {
+		data.allWeapons = StartingWeapons;
+	}
     void Update()
     {
         WeaponController activeWeapon = GetActiveWeapon();
@@ -605,4 +617,5 @@ public class PlayerWeaponsManager : MonoBehaviour
                 return false;
         }
     }
+
 }

@@ -3540,6 +3540,18 @@ MonoBehaviour:
           m_StringArgument: TestingScene
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1643140749}
+        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &999289361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6059,6 +6071,7 @@ GameObject:
   - component: {fileID: 1643140746}
   - component: {fileID: 1643140745}
   - component: {fileID: 1643140748}
+  - component: {fileID: 1643140749}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6124,6 +6137,19 @@ MonoBehaviour:
   loadingScreen: {fileID: 1713171585}
   slider: {fileID: 1287136640}
   progressText: {fileID: 1842593734}
+--- !u!114 &1643140749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643140744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c218e6efcdcbef64ea81f36b64746b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: save
 --- !u!1 &1654422885
 GameObject:
   m_ObjectHideFlags: 0
