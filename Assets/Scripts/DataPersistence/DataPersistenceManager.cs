@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using System;
+using UnityEngine;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -10,6 +8,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     [SerializeField] private string fileName;
     
+    // Holds data to be written to the save file
     private GameData gameData;
 
     private List<IDataPersistence> dataPersistencesObjects;
@@ -29,7 +28,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName); //Application.persistentDataPath gives operating system standard directory. https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html link to documentation if u want to change it later or check where it saves it miki.
+        //Application.persistentDataPath gives operating system standard directory: https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName); 
         this.dataPersistencesObjects = FindAllDataPersistenceObjects();                 
         LoadGame();
     }
@@ -43,7 +43,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
-        this.gameData= new GameData();
+        this.gameData = new GameData();
     }
 
     public void LoadGame()
@@ -54,7 +54,7 @@ public class DataPersistenceManager : MonoBehaviour
         if (this.gameData == null)
         {
             Debug.Log("No data found. Please create new Game");
-            NewGame();// not sure if I want it
+            NewGame(); // not sure if I want it
         }
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistencesObjects)
@@ -73,4 +73,9 @@ public class DataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData);
     }
 
+    private void OnApplicationQuit()
+    {
+        //TODO: Decide if we want this late
+        //SaveGame();
+    }
 }
