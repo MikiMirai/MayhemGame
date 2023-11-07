@@ -7,6 +7,7 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("File Storage Config")]
 
     [SerializeField] private string fileName;
+    [SerializeField] private bool useEncryption;
     
     // Holds data to be written to the save file
     private GameData gameData;
@@ -29,7 +30,7 @@ public class DataPersistenceManager : MonoBehaviour
     private void Start()
     {
         //Application.persistentDataPath gives operating system standard directory: https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName); 
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption); 
         this.dataPersistencesObjects = FindAllDataPersistenceObjects();                 
         LoadGame();
     }
