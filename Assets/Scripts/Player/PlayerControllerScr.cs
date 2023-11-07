@@ -2,7 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using static PlayerModels;
 
-public class PlayerControllerScr : MonoBehaviour
+public class PlayerControllerScr : MonoBehaviour, IDataPersistence
 {
     //Attach animator to set values
     [Header("Animation")]
@@ -367,4 +367,14 @@ public class PlayerControllerScr : MonoBehaviour
         isSprinting = !isSprinting;
     }
 
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    //TODO: Test if this saves the player with some offset, into walls or the ground
+    public void SaveData(ref GameData data)
+    {
+        data.playerPosition = this.transform.position;
+    }
 }
