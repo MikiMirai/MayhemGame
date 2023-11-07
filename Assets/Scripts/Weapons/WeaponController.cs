@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -237,26 +236,25 @@ public class WeaponController : MonoBehaviour, IDataPersistence
     }
     public void LoadData(GameData data)
     {
-        if (data.CarriedAmmo == 0 && data.MagazineAmmo == 0)
+        if (data.carriedAmmo == 0 && data.magazineAmmo == 0)
         {
             m_CarriedPhysicalBullets = HasPhysicalBullets ? MaxCarriableAmmo : 0;
             m_CurrentAmmo = MaxWeaponAmmo;
         }
         else
         {
-            m_CarriedPhysicalBullets = data.CarriedAmmo;
-            m_CurrentAmmo = data.MagazineAmmo;
+            m_CarriedPhysicalBullets = data.carriedAmmo;
+            m_CurrentAmmo = data.magazineAmmo;
         }
     }
 
     public void SaveData(ref GameData data)
     {
-        data.CarriedAmmo = m_CarriedPhysicalBullets;
-        data.MagazineAmmo = (int)m_CurrentAmmo;
+        data.carriedAmmo = m_CarriedPhysicalBullets;
+        data.magazineAmmo = (int)m_CurrentAmmo;
     }
 
     //change it so it doesnt go higher than MaxCarriableAmmo
-
     public void AddPhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxCarriableAmmo);
 
     void ShootShell()
